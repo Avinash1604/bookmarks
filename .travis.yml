@@ -10,7 +10,7 @@ addons:
   chrome: stable
 
 before_script:
-  - yarn global add bookmark-ui/@angular/cli
+  - yarn global add @angular/cli
 
 cache:
   yarn: true
@@ -18,6 +18,8 @@ cache:
     - bookmark-ui/node_modules
 
 script:
+  - cd ./bookmark-ui
+  - npm i
   - npm run lint
   - ng test --watch=false
   - ng build --prod --base-href https://Avinash1604.github.io/bookmark-ui/
