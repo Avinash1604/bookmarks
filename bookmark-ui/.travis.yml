@@ -30,5 +30,5 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: ./dist/bookmark-ui/
+  local-dir: ./dist/bookmark-ui
   on:
