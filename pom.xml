@@ -9,6 +9,11 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>bootstrap</module>
+        <module>acceptance-test</module>
+      <module>domain</module>
+        <module>domain-api</module>
+        <module>jpa-adapter</module>
+        <module>rest-adapter</module>
     </modules>
     <properties>
         <java.version>11</java.version>
