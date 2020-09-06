@@ -20,7 +20,7 @@ cache:
 script:
   - npm run lint
   - ng test --watch=false
-  - ng build --prod --base-href https://Avinash1604.github.io/bookmark-ui/
+  - ng build --prod --base-href https://Avinash1604.github.io/bookmarks/
 
 after_success:
   - cat ./coverage/bookmark-ui/lcov.info | ./node_modules/coveralls/bin/coveralls.js
