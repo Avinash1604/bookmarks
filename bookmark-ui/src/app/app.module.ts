@@ -4,16 +4,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule, MatFormFieldControl} from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatFormFieldModule,
+  MatFormFieldControl,
+} from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
-  declarations: [
-    AppComponent
-    ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,9 +24,10 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    ClipboardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

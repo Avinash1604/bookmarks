@@ -40,13 +40,16 @@
           </mat-form-field>
         </div>
         <div class="row create-link">
-          <button mat-raised-button color="primary">Create Link</button>
+          <button mat-raised-button color="primary"  class="btn-create-link" [class.spinner]="loading" [disabled]="loading">Create Link</button>
         </div>
         <div class="row short-url">
-          <img class="show-arrow" src="https://img.icons8.com/ios/50/000000/hand-down.png" />
-        <div class="short-url-box">
-          
-        </div>
+          <img
+            class="show-arrow"
+            src="https://img.icons8.com/ios/50/000000/hand-down.png"
+          />
+          <div class="short-url-box">
+            <img class="copy-img" [cdkCopyToClipboard]="copy()" src="https://img.icons8.com/material-rounded/24/000000/copy.png"/>
+          </div>
         </div>
       </form>
     </div>
