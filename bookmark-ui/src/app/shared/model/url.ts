@@ -1,6 +1,6 @@
 export interface Url{
-    longUrl: string,
-    id?: number,
-    expiryDate: string,
-    shortUrl?: string
+    longUrl: string;
+    id?: number;
+    expiryDate: string;
+    shortUrl?: string;
 }
