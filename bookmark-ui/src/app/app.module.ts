@@ -13,6 +13,9 @@ import {
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +28,11 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    ClipboardModule
+    ClipboardModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -10,6 +10,12 @@ import {
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -22,10 +28,17 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatNativeDateModule,
         MatInputModule,
+        ClipboardModule,
+        HttpClientModule,
+        FormsModule,
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        MatSnackBarModule
       ],
       declarations: [
         AppComponent
       ],
+      providers: [DatePipe]
     }).compileComponents();
   }));
 
