@@ -3,20 +3,24 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Url } from './shared/model/url';
 import { UrlService } from './shared/service/url.service';
 import { DatePipe } from '@angular/common';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class AppComponent implements OnInit {
   title = 'bookmark-ui';
   loading = false;
   shortUrlForm: FormGroup;
-  shortUrl: string = 'test';
-  constructor(private urlService: UrlService, private datePipe: DatePipe, private _snackBar: MatSnackBar) {}
+  shortUrl: string;
+  constructor(
+    private urlService: UrlService,
+    private datePipe: DatePipe,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.shortUrlForm = new FormGroup({
@@ -31,7 +35,9 @@ export class AppComponent implements OnInit {
     const url = {} as Url;
     url.longUrl = this.shortUrlForm.get('longUrl').value;
     const expiry = this.shortUrlForm.get('expiryDate').value;
-    url.expiryDate = expiry?this.datePipe.transform(expiry, 'yyyy-MM-dd'):null;
+    url.expiryDate = expiry
+      ? this.datePipe.transform(expiry, 'yyyy-MM-dd')
+      : null;
     this.urlService.requestShortUrl(url).subscribe(
       (data: Url) => {
         this.loading = false;
@@ -39,7 +45,7 @@ export class AppComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        console.log("error"+error)
+        console.log('error' + error);
       }
     );
   }
@@ -48,8 +54,8 @@ export class AppComponent implements OnInit {
     return this.shortUrl;
   }
 
-  copyImageClick(){
-    this._snackBar.open('copied','url', {
+  copyImageClick() {
+    this.snackBar.open('copied', 'url', {
       duration: 2000,
     });
   }
