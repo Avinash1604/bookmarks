@@ -13,15 +13,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/api/v1/urls/shorts")
 @Tag(name = "shortUrl", description = "This allows user to dealing with big urls problems by shorting it")
+@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class UrlShortenerController(private val bookmarkService: BookmarkService) {
     @PostMapping()
     @Operation(summary = "Create a short url", description = "User will request for the short url by sending the destination url and expiry date")
