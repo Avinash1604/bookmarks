@@ -27,7 +27,7 @@ matrix:
          - ng build --prod --base-href https://Avinash1604.github.io/bookmarks/
 
        after_success:
-         - cat ./bookmark-ui/coverage/bookmark-ui/lcov.info | ./bookmark-ui/node_modules/coveralls/bin/coveralls.js
+         - cat ./coverage/bookmark-ui/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
        deploy:
          provider: pages
