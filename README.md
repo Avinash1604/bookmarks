@@ -1,4 +1,6 @@
 # Bookmark and short url
+[![Build Status](https://travis-ci.com/Avinash1604/bookmarks.svg?branch=master)](https://travis-ci.com/Avinash1604/bookmarks) [![Coverage Status](https://coveralls.io/repos/github/Avinash1604/bookmarks/badge.svg?branch=master)](https://coveralls.io/github/Avinash1604/bookmarks?branch=master)
+## About
 A URL shortener is a service that is used to create short links from very long URL this will solve long url issue and Bookmark is to store the all the urls related to application and can be categorize as different group and share the group related urls
 
 
