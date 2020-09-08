@@ -29,6 +29,12 @@ matrix:
          keep-history: true
          local-dir: ./bookmark-ui/dist/
          on:
-
-
-
+           -
+    - language: java
+        java:
+          -openjdk11
+        branches:
+          only:
+            - master
+        cache:
+          - $HOME/.m2
