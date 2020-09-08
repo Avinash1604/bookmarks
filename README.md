@@ -26,9 +26,9 @@ please find a below link of swagger
 ### How to use an application 
 
 ### Technology and versions 
-Spring boot - 2.3.2 
-Kotlin 
-Swagger : open API 3 
-OpenJdk 11.2 
-Angular - 9 version 
+** Spring boot - 2.3.2 
+** Kotlin 
+** Swagger : open API 3 
+** OpenJdk 11.2 
+** Angular - 9 version 
 
