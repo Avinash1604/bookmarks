@@ -1,0 +1,19 @@
+:host ::ng-deep {
+    .login-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+    }
+  
+    .form-fields-full-width {
+      width: 100%;
+    }
+    .login-btn-container {
+      text-align: center;
+      .login {
+        margin: 20px;
+        width: 200px;
+      }
+    }
+  }
+  
