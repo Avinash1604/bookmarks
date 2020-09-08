@@ -1,27 +1,34 @@
 matrix:
   include:
-    - language: node_js
+     - language: node_js
        node_js:
          - "12.6"
+
        branches:
          only:
            - master
+
        addons:
          chrome: stable
+
        before_script:
          - yarn global add @angular/cli
+
        cache:
          yarn: true
          directories:
            - bookmark-ui/node_modules
+
        script:
          - cd ./bookmark-ui
          - npm i
          - npm run lint
          - ng test --watch=false
          - ng build --prod --base-href https://Avinash1604.github.io/bookmarks/
+
        after_success:
          - cat ./bookmark-ui/coverage/bookmark-ui/lcov.info | ./bookmark-ui/node_modules/coveralls/bin/coveralls.js
+
        deploy:
          provider: pages
          skip-cleanup: true
@@ -29,12 +36,4 @@ matrix:
          keep-history: true
          local-dir: ./bookmark-ui/dist/
          on:
-           -
-    - language: java
-        java:
-          -openjdk11
-        branches:
-          only:
-            - master
-        cache:
-          - $HOME/.m2
+
