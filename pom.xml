@@ -26,6 +26,7 @@
     <junit-jupiter.version>5.3.2</junit-jupiter.version>
     <maven-surfire.version>2.22.0</maven-surfire.version>
     <h2-version>1.4.199</h2-version>
+    <jacoco.version>0.8.2</jacoco.version>
   </properties>
 
   <dependencies>
@@ -151,6 +152,53 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surfire.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>pre-unit-tests</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <propertyName>surefireArgLine</propertyName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+        <version>4.3.0</version>
+      </plugin>
+      <plugin>
+        <groupId>com.github.cukedoctor</groupId>
+        <artifactId>cukedoctor-maven-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <outputFileName>documentation</outputFileName>
+          <outputDir>docs</outputDir>
+          <format>html</format>
+          <docVersion>${project.version}</docVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

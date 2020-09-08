@@ -37,3 +37,21 @@ matrix:
          local-dir: ./bookmark-ui/dist/
          on:
 
+     - language: java
+       java:
+         - openjdk11
+       cache:
+         yarn: true
+         directories:
+           - $HOME/.m2
+       branches:
+         only:
+           - master
+       script:
+         - mvn verify jacoco:report
+       after_success:
+         - mvn coveralls:report
+
+
+
+
