@@ -4,6 +4,9 @@ import { Url } from './shared/model/url';
 import { UrlService } from './shared/service/url.service';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './feature/login/login.component';
+import { RegisterComponent } from './feature/register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,8 @@ export class AppComponent implements OnInit {
   constructor(
     private urlService: UrlService,
     private datePipe: DatePipe,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -48,6 +52,22 @@ export class AppComponent implements OnInit {
         console.log('error' + error);
       }
     );
+  }
+
+  openDialogLogin(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openDialogRegister(): void {
+    const dialogRef = this.dialog.open(RegisterComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   copy() {

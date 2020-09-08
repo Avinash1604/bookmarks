@@ -33,12 +33,10 @@ describe('AppComponent', () => {
         FormsModule,
         HttpClientTestingModule,
         ReactiveFormsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
       ],
-      declarations: [
-        AppComponent
-      ],
-      providers: [DatePipe]
+      declarations: [AppComponent],
+      providers: [DatePipe],
     }).compileComponents();
   }));
 
