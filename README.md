@@ -21,9 +21,11 @@ Spring boot Kotlin :
 Integrated with heroku and will be deployed automatically when code is pushed.
 
 ## Demo 
-spring kotlin code hosted on heroku 
-please find a below link of swagger
-`https://bookmarks-tiny.herokuapp.com/swagger-ui.html` [demo](https://bookmarks-tiny.herokuapp.com/swagger-ui.html)
+Swagger
+* `https://bookmarks-tiny.herokuapp.com/swagger-ui.html` [url](https://bookmarks-tiny.herokuapp.com/swagger-ui.html)
+
+Application 
+* `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
 
 ### How to use an application 
 
