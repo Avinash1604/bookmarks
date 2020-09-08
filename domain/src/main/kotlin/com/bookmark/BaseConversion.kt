@@ -12,7 +12,7 @@ object BaseConversion {
         }
         while (input > 0) {
             encodedString.append(allowedCharacters[(input % base).toInt()])
-            input /= base
+            input = input / base
         }
         return encodedString.reverse().toString()
     }
@@ -23,9 +23,9 @@ object BaseConversion {
         var decoded: Double = 1.0
         var counter = 1
         for (i in 0 until length) {
-            decoded += allowedString.indexOf(characters.get(i)) * Math.pow(base.toDouble(), length - counter.toDouble())
+            decoded += allowedString.indexOf(characters[i]) * Math.pow(base.toDouble(), length - counter.toDouble())
             counter++
         }
-        return decoded.toLong()
+        return (decoded-1).toLong()
     }
 }

@@ -32,7 +32,7 @@ class UrlShortenerControllerTest {
         // given
         val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"))
         val request: HttpEntity<UrlRequest> = HttpEntity(urlRequest)
-        Mockito.`when`(bookmarkService!!.createShortUrl(urlRequest)).thenReturn(Url(longUrl = "https://mkyong.com/spring-boot/test/spring/boo", expiryDate = LocalDate.parse("2020-09-30"), shortUrl = "https://localhost:8080/abcd", id = 1))
+        Mockito.`when`(bookmarkService!!.createShortUrl(urlRequest,"http://localhost:$port")).thenReturn(Url(longUrl = "https://mkyong.com/spring-boot/test/spring/boo", expiryDate = LocalDate.parse("2020-09-30"), shortUrl = "https://localhost:8080/abcd", id = 1))
         //when
         val url = BASE_URL + port + API_END_POINTS
         val response = restTemplate.postForEntity(url, request, Url::class.java)

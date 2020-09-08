@@ -1,17 +1,21 @@
 package com.bookmark
 
 import com.bookmark.model.UrlRequest
+import com.bookmark.repository.UrlRepository
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.InjectMocks
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDate
 
-@ExtendWith(SpringExtension::class)
+
+@SpringBootTest(classes = [Application::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BookmarkJpaTest{
 
-    @InjectMocks
+    @Autowired
+    lateinit var urlRepository: UrlRepository
+
+    @Autowired
     lateinit var bookmarkJpa: BookmarkJpa
 
     @Test

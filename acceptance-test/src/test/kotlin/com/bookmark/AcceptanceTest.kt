@@ -19,7 +19,7 @@ class AcceptanceTest {
     @Test
     fun `create short url and store details on database`() {
         val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"))
-        val response = bookmarkDomain.createShortUrl(urlRequest);
+        val response = bookmarkDomain.createShortUrl(urlRequest, "http://localhost:8080");
         Assertions.assertThat(response.id).isEqualTo(response.id)
     }
 }
