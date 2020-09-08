@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 @Tag(name = "URL", description = "This allows user to dealing with big urls problems by shorting it")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class UrlShortenerController(private val bookmarkService: BookmarkService) {
-    @PostMapping()
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create a short url", description = "User will request for the short url by sending the destination url and expiry date")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Successfully created short url", content = [
@@ -37,6 +38,5 @@ class UrlShortenerController(private val bookmarkService: BookmarkService) {
     private fun getHostName(): String {
         return ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
     }
-
 
 }

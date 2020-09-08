@@ -25,9 +25,9 @@ class URLRedirectController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    @GetMapping(value = ["{shortUrlCode}"])
-    fun getUrlAndRedirect(@PathVariable shortUrlCode: String): ResponseEntity<Void> {
-        val url = bookmarkService.getOriginalUrlByUrl(shortUrlCode)
+    @GetMapping(value = ["{shortUrl}"])
+    fun getUrlAndRedirect(@PathVariable shortUrl: String): ResponseEntity<Void> {
+        val url = bookmarkService.getOriginalUrlByUrl(shortUrl)
         return ResponseEntity.status(HttpStatus.FOUND).location(URI(url)).build()
     }
 
