@@ -1,0 +1,105 @@
+:host ::ng-deep {
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100% !important;
+  }
+  .inner-sidenav-content {
+    overflow: auto;
+    position: top;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 10px;
+  }
+  mat-sidenav {
+    color: black;
+    min-width: 250px;
+  }
+
+  .title-center {
+    margin: 0 auto;
+    font-family: "Roboto", "RobotoRegular", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+  }
+
+  .navImageright {
+    margin-left: auto;
+    margin-right: 0px;
+    margin-top: 8px;
+  }
+
+  .t-nav-list {
+    color: black;
+  }
+
+  .white-icon {
+    color: black;
+  }
+
+  .material-icons.color_green {
+    color: black;
+  }
+
+  .logOutBtn {
+    width: 100px !important; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+    height: 50px !important;
+    background-size: cover; /* <------ */
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .side-nave-container {
+    height: 92%;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .mat-sidenav {
+    box-shadow: 0 5px 5px #999;
+    z-index: 1000000;
+  }
+
+  @media screen and (max-width: 639px) {
+    .title-center {
+      font-size: 14px;
+    }
+  }
+
+  .sub-menu{
+    mat-icon{
+      float: right;
+    }
+  }
+
+  mat-nav-list {
+    background: #fff;
+    color: #333e48;
+    border-color: transparent;
+    box-shadow: 0 5px 12px 0 rgba(32, 38, 42, 0.3);
+    -webkit-justify-content: left;
+    justify-content: left;
+    width: 245px;
+    min-height: 60px;
+    outline: none;
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .mat-expansion-panel {
+    box-shadow: none !important;
+  }
+  mat-panel-title {
+    flex-basis: 0;
+  }
+  mat-panel-description {
+    flex-basis: 100%;
+    margin-top: 3px;
+  }
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    font-size: 15px;
+  }
+}
