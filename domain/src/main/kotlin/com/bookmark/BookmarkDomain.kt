@@ -22,4 +22,8 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     override fun createUser(user: UserRequest): User {
         return bookmarkDatabaseService.createUser(user)
     }
+
+    override fun getUserByCredentials(user: UserRequest): User {
+        return bookmarkDatabaseService.getUserByCredentials(user);
+    }
 }

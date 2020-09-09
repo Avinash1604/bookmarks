@@ -9,13 +9,14 @@ import javax.persistence.*
 data class UserEntity(
         @Id
         @Column(name = "USER_ID")
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(generator = "T_USER_SEQUENCE", strategy = GenerationType.AUTO)
+        @SequenceGenerator(name = "T_USER_SEQUENCE", sequenceName = "T_USER_SEQUENCE", allocationSize = 1)
         val userId: Long? = null,
 
         @Column(name = "EMAIL")
         val email: String? = null,
 
-        @Column(name = "EXPIRY_DATE")
+        @Column(name = "PASSWORD")
         val password: String? = null,
 
         @Column(name = "USER_NAME")

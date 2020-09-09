@@ -43,6 +43,13 @@ class BookmarkJpaTest{
         Assertions.assertThat(response.userId).isEqualTo(userRepository.findAll()[0].userId)
     }
 
+    @Test
+    fun `Create a user by email and password`(){
+        val responseUser = bookmarkJpa.createUser(getUserRequestMock());
+        val response = bookmarkJpa.getUserByCredentials(getUserRequestMock());
+        Assertions.assertThat(response.userId).isEqualTo(userRepository.findAll()[0].userId)
+    }
+
 
     private fun getUserRequestMock(): UserRequest {
         return UserRequest(userName = "user 1",email = "user1@gmaill.com",password = "pass")

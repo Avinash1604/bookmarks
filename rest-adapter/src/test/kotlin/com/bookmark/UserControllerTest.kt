@@ -25,7 +25,7 @@ class UserControllerTest {
     lateinit var bookmarkService: BookmarkService
 
     @Test
-    fun createShortUrl() {
+    fun createUser() {
         // given
         val request: HttpEntity<UserRequest> = HttpEntity(getUserRequestMock())
         Mockito.`when`(bookmarkService!!.createUser(getUserRequestMock())).thenReturn(getUserMock())
@@ -37,6 +37,20 @@ class UserControllerTest {
         Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.CREATED)
         Assertions.assertThat(response.body.userId).isEqualTo(1)
     }
+
+    @Test
+    fun getUserByCredentials() {
+        // given
+        Mockito.`when`(bookmarkService!!.getUserByCredentials(UserRequest(password = "test123",email = "test123@gmaill.com"))).thenReturn(getUserMock())
+        //when
+        val url = "$BASE_URL$port$API_END_POINTS/by-credentials?email=test123@gmail.com&password=test123"
+        val response = restTemplate.getForEntity(url, User::class.java)
+        //then
+        Assertions.assertThat(response).isNotNull
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
+      //  Assertions.assertThat(response.body.userId).isEqualTo(1)
+    }
+
 
     private fun getUserRequestMock(): UserRequest{
         return UserRequest(userName = "user 1",email = "user1@gmaill.com",password = "pass")
