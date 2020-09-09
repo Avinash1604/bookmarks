@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './feature/login/login.component';
 import { MaterialModule } from './shared/material.module';
 import { RegisterComponent } from './feature/register/register.component';
+import { HomeComponent } from './feature/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
