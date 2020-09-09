@@ -1,1 +1,110 @@
-<p>dashboard-home works!</p>
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0">
+  <mat-toolbar
+    color="primary"
+    style="color: white"
+    class="fixed-header"
+    class="mat-elevation-z4"
+  >
+    <!-- ommited -->
+    <h1 class="title-center">Bookmark</h1>
+    <div [ngStyle]="{ display: screenWidth > 840 ? 'none' : 'block' }">
+      <button mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container #sidenavCon class="side-nave-container">
+    <mat-sidenav
+      [mode]="screenWidth > 840 ? 'side' : 'Over'"
+      [opened]="screenWidth > 840"
+      #sidenav
+      class="mat-sidenav"
+    >
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="material-icons color_green">link </mat-icon>
+          </mat-panel-title>
+          <mat-panel-description> Link </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-selection-list #link [multiple]="false">
+          <mat-list-option>
+            <div class="sub-menu">
+              ADD NEW
+              <mat-icon class="material-icons color_green"
+                >keyboard_arrow_right
+              </mat-icon>
+            </div>
+          </mat-list-option>
+          <mat-list-option>
+            <div class="sub-menu">
+              ALL LINK
+              <mat-icon class="material-icons color_green"
+                >keyboard_arrow_right
+              </mat-icon>
+            </div>
+          </mat-list-option>
+          <mat-list-option>
+            <div class="sub-menu">
+              EXPIRED LINK
+              <mat-icon class="material-icons color_green"
+                >keyboard_arrow_right
+              </mat-icon>
+            </div></mat-list-option
+          >
+        </mat-selection-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="material-icons color_green">link </mat-icon>
+        </mat-panel-title>
+        <mat-panel-description> GROUP </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-selection-list #link [multiple]="false">
+        <mat-list-option>
+          <div class="sub-menu">
+            ADD NEW
+            <mat-icon class="material-icons color_green"
+              >keyboard_arrow_right
+            </mat-icon>
+          </div>
+        </mat-list-option>
+        <mat-list-option>
+          <div class="sub-menu">
+            ALL GROUP
+            <mat-icon class="material-icons color_green"
+              >keyboard_arrow_right
+            </mat-icon>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-expansion-panel>
+    
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['../home']">
+          <div style="margin-right: 10px">
+            <mat-icon class="material-icons color_green">logout </mat-icon>
+          </div>
+          <span class="navListTitle">Log Out</span>
+          <div class="navImageright">
+            <mat-icon class="material-icons color_green"
+              >keyboard_arrow_right</mat-icon
+            >
+          </div>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

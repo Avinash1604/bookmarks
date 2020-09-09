@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUser(user).subscribe(
       (data) => {
         this.dialogRef.close();
+        this.router.navigate(['/dashboard']);
       },
       (err) => {
         alert('Incorrect email or password');

@@ -9,6 +9,18 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @NgModule({
     imports: [
@@ -21,7 +33,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         HttpClientModule,
         MatSnackBarModule,
         MatDialogModule,
-      ],
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule,
+        MatCardModule,
+        MatTabsModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatExpansionModule
+    ],
     exports: [
         MatButtonModule,
         MatDatepickerModule,
@@ -31,7 +54,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         ClipboardModule,
         HttpClientModule,
         MatSnackBarModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule,
+        MatCardModule,
+        MatTabsModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatExpansionModule
     ]
 })
 export class MaterialModule {
