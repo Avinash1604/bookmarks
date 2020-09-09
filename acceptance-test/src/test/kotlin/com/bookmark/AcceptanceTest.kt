@@ -46,6 +46,14 @@ class AcceptanceTest {
     }
 
 
+    @Test
+    fun `Create a user by email and password`(){
+        val responseUser = bookmarkDomain.createUser(getUserRequestMock());
+        val response = bookmarkDomain.getUserByCredentials(getUserRequestMock());
+        Assertions.assertThat(response.userId).isEqualTo(userRepository.findAll()[0].userId)
+    }
+
+
     private fun getUserRequestMock(): UserRequest {
         return UserRequest(userName = "user 1",email = "user1@gmaill.com",password = "pass")
     }

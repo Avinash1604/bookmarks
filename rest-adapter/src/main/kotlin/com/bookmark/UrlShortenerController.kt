@@ -25,7 +25,7 @@ class UrlShortenerController(private val bookmarkService: BookmarkService) {
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create a short url", description = "User will request for the short url by sending the destination url and expiry date")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Successfully created short url", content = [
+        ApiResponse(responseCode = "201", description = "Successfully created short url", content = [
             (Content(mediaType = "application/json", schema = Schema(implementation = Url::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]

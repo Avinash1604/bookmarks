@@ -45,4 +45,8 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
         return userRepository.save(userEntity).mapEntityToDto()
     }
 
+    override fun getUserByCredentials(user: UserRequest): User {
+        return userRepository.findByEmailAndPassword(user.email, user.password).mapEntityToDto()
+
+    }
 }

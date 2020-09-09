@@ -10,4 +10,5 @@ interface BookmarkService {
     fun getOriginalUrlByUrl(shortUrl: String): String
 
     fun createUser(user: UserRequest): User
+    fun getUserByCredentials(user: UserRequest): User
 }
