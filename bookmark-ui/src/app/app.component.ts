@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        console.log('error' + error);
       }
     );
   }
