@@ -2,6 +2,8 @@ package com.bookmark
 
 import com.bookmark.model.Url
 import com.bookmark.model.UrlRequest
+import com.bookmark.model.User
+import com.bookmark.model.UserRequest
 import com.bookmark.port.BookmarkDatabaseService
 import com.bookmark.port.BookmarkService
 
@@ -15,5 +17,9 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     override fun getOriginalUrlByUrl(shortUrlCode: String): String {
         val urlId = BaseConversion.decode(shortUrlCode);
         return bookmarkDatabaseService.getOriginalUrlByUrl(urlId)
+    }
+
+    override fun createUser(user: UserRequest): User {
+        return bookmarkDatabaseService.createUser(user)
     }
 }
