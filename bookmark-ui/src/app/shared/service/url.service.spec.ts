@@ -6,7 +6,7 @@ import { Url } from '../model/url';
 
 describe('UrlService', () => {
   let service: UrlService;
-  let httpTestingController: HttpTestingController
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,9 +26,9 @@ describe('UrlService', () => {
     url.expiryDate = '2020-12-12';
     service.requestShortUrl(url).subscribe(
       data => {
-        expect(url.longUrl).toEqual('http://test/test/test')
+        expect(url.longUrl).toEqual('http://test/test/test');
       }
-    )
+    );
     const req = httpTestingController.expectOne(service.baseUrl);
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(url);

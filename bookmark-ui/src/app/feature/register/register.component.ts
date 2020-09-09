@@ -11,7 +11,7 @@ import { UserService } from 'src/app/shared/service/user.service';
 })
 export class RegisterComponent  {
   user: User = {} as User;
-  loading: boolean = false;
+  loading = false;
   constructor(
     private router: Router,
     private dialogRef: MatDialogRef<RegisterComponent>,
@@ -20,12 +20,12 @@ export class RegisterComponent  {
 
   register() {
     this.loading = true;
-    this.userService.creatUser(this.user).subscribe(data =>{
+    this.userService.creatUser(this.user).subscribe(data => {
       this.loading = false;
       this.dialogRef.close();
-      //this.router.navigate(['dashboardhome/createSurvey']);
-    }, error =>{
+      // this.router.navigate(['dashboardhome/createSurvey']);
+    }, error => {
       this.loading = false;
-    })
+    });
   }
 }

@@ -9,7 +9,7 @@ import { User } from '../model/user';
 export class UserService {
   //  baseUrl = 'https://bookmarks-tiny.herokuapp.com/api/v1/users';
   baseUrl = 'http://localhost:8080/api/v1/users';
-  getUserByCredentials = '/by-credentials'
+  getUserByCredentials = '/by-credentials';
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +18,6 @@ export class UserService {
   }
 
    getUser(data: User): Observable<User> {
-    return this.http.get<User>(this.baseUrl+this.getUserByCredentials+'?email='+data.email+'password='+data.password);
+    return this.http.get<User>(this.baseUrl + this.getUserByCredentials + '?email=' + data.email + 'password=' + data.password);
   }
 }

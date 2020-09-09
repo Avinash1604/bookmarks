@@ -52,7 +52,7 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    userService = TestBed.get(UserService)
+    userService = TestBed.get(UserService);
     fixture.detectChanges();
   });
 
@@ -63,9 +63,9 @@ describe('LoginComponent', () => {
 
   it('should login by given credentials and dailog reference close when user did sucessfull login', () => {
     const user = {} as User;
-    component.email = "test@gmail.com"
-    component.password = "password"
-    spyOn(userService, 'getUser').and.returnValue(of(user))
+    component.email = 'test@gmail.com';
+    component.password = 'password';
+    spyOn(userService, 'getUser').and.returnValue(of(user));
     component. login();
   //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
   });

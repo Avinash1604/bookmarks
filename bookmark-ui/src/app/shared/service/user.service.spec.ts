@@ -47,7 +47,7 @@ describe('UserService', () => {
     service.getUser(user).subscribe((data) => {
       expect(data.email).toEqual('email@email.com');
     });
-    const req = httpTestingController.expectOne(service.baseUrl+service.getUserByCredentials);
+    const req = httpTestingController.expectOne(service.baseUrl + service.getUserByCredentials);
     expect(req.request.method).toEqual('GET');
     expect(req.request.body).toEqual(user);
   });

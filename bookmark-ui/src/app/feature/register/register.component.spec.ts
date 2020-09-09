@@ -34,7 +34,7 @@ export class MatDialogRefMock {
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
-  let userService: UserService
+  let userService: UserService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -53,7 +53,7 @@ describe('RegisterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-    userService = TestBed.get(UserService)
+    userService = TestBed.get(UserService);
     fixture.detectChanges();
   });
 
@@ -66,7 +66,7 @@ describe('RegisterComponent', () => {
     user.userName = 'userName';
     user.password = 'password';
     user.email = 'email';
-    spyOn(userService, 'creatUser').and.returnValue(of(user))
+    spyOn(userService, 'creatUser').and.returnValue(of(user));
     component.user = user;
     component.register();
   //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
