@@ -13,20 +13,19 @@ import { User } from '../../shared/model/user';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const router = {
-  navigate: jasmine.createSpy('navigate')
+  navigate: jasmine.createSpy('navigate'),
 };
 
 export class MatDialogMock {
   open() {
     return {
-       afterClosed: () => of({ action: true })
+      afterClosed: () => of({ action: true }),
     };
   }
 }
 
 export class MatDialogRefMock {
-  close() {
-  }
+  close() {}
 }
 
 describe('LoginComponent', () => {
@@ -34,25 +33,29 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let userService: UserService;
 
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [MaterialModule, BrowserAnimationsModule, FormsModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [LoginComponent],
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
       providers: [
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
         { provide: Router, useValue: router },
-        UserService
-      ]
-    })
-    .compileComponents();
+        UserService,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    userService = TestBed.get(UserService);
+    userService = TestBed.inject(UserService);
     fixture.detectChanges();
   });
 
@@ -60,14 +63,12 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should login by given credentials and dailog reference close when user did sucessfull login', () => {
     const user = {} as User;
     component.email = 'test@gmail.com';
     component.password = 'password';
     spyOn(userService, 'getUser').and.returnValue(of(user));
-    component. login();
-  //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
+    component.login();
+    //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
   });
-
 });

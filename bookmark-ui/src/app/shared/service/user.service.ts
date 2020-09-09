@@ -18,6 +18,7 @@ export class UserService {
   }
 
    getUser(data: User): Observable<User> {
-    return this.http.get<User>(this.baseUrl + this.getUserByCredentials + '?email=' + data.email + 'password=' + data.password);
+    return this.http.get<User>(this.baseUrl + this.getUserByCredentials
+      + '?email=' + data.email + '&password=' + data.password);
   }
 }

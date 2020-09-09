@@ -14,22 +14,20 @@ import { User } from 'src/app/shared/model/user';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const router = {
-  navigate: jasmine.createSpy('navigate')
+  navigate: jasmine.createSpy('navigate'),
 };
 
 export class MatDialogMock {
   open() {
     return {
-      afterClosed: () => of({ action: true })
+      afterClosed: () => of({ action: true }),
     };
   }
 }
 
 export class MatDialogRefMock {
-  close() {
-  }
+  close() {}
 }
-
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -38,22 +36,27 @@ describe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ],
-      imports: [MaterialModule, BrowserAnimationsModule, FormsModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [RegisterComponent],
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
       providers: [
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
         { provide: Router, useValue: router },
-        UserService
-      ]
-    })
-    .compileComponents();
+        UserService,
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-    userService = TestBed.get(UserService);
+    userService = TestBed.inject(UserService);
     fixture.detectChanges();
   });
 
@@ -69,6 +72,6 @@ describe('RegisterComponent', () => {
     spyOn(userService, 'creatUser').and.returnValue(of(user));
     component.user = user;
     component.register();
-  //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
+    //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
   });
 });
