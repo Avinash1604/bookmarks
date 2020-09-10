@@ -68,7 +68,7 @@ describe('CreateLinkComponent', () => {
     url.expiryDate = '2020-12-12';
     url.title = 'title';
     url.description = 'desc';
-    url.isBookmark = true;
+    url.bookmarked = true;
     spyOn(urlService, 'requestShortUrl').and.returnValue(of(url));
     component.requestShortUrl();
     expect(component.loading).toEqual(false);

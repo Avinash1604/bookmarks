@@ -5,5 +5,5 @@ export interface Url {
   shortUrl?: string;
   title?: string;
   description?: string;
-  isBookmark?: boolean;
+  bookmarked?: boolean;
 }

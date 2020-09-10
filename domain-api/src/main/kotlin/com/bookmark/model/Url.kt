@@ -11,5 +11,5 @@ data class Url (
     var createdOn: LocalDateTime? = null,
     val title: String? = null,
     val description: String? = null,
-    val isBookmark: Boolean? = false
+    val bookmarked: Boolean? = false
 )

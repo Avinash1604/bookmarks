@@ -27,7 +27,7 @@ data class UrlEntity(
         val description: String? = null,
 
         @Column(name = "IS_BOOKMARK")
-        val isBookmark: Boolean? = false,
+        val bookmarked: Boolean? = false,
 
         @Column(name = "CREATED_ON")
         val createdOn: LocalDateTime? = null
@@ -40,7 +40,7 @@ data class UrlEntity(
                 createdOn = createdOn,
                 title = title,
                 description = description,
-                isBookmark = isBookmark
+                bookmarked = bookmarked
         )
     }
 }

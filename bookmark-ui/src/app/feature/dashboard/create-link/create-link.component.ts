@@ -39,7 +39,7 @@ export class CreateLinkComponent implements OnInit {
     const expiry = this.shortUrlForm.get('expiryDate').value;
     url.description =  this.shortUrlForm.get('desc').value;
     url.title = this.shortUrlForm.get('title').value;
-    url.isBookmark = true;
+    url.bookmarked = true;
     url.expiryDate = expiry
       ? this.datePipe.transform(expiry, 'yyyy-MM-dd')
       : null;

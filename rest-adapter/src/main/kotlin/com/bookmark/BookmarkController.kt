@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/v1/bookmark")
-@Tag(name = "URL", description = "This allows user to dealing with big urls problems by shorting it")
+@Tag(name = "Bookmark", description = "This allows user to dealing with big urls problems by shorting it")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class BookmarkController(private val bookmarkService: BookmarkService) {
     @PostMapping(value = ["/urls/shorts"],produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])

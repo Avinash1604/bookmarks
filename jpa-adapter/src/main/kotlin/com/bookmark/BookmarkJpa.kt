@@ -24,7 +24,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
                 createdOn = LocalDateTime.now(),
                 title = urlRequest.title,
                 description = urlRequest.description,
-                isBookmark = urlRequest.isBookmark
+                bookmarked = urlRequest.isBookmark
         )
         return urlRepository.save(urlEntity).mapEntityToDto()
     }
