@@ -23,7 +23,7 @@ export class RegisterComponent  {
     this.userService.creatUser(this.user).subscribe(data => {
       this.loading = false;
       this.dialogRef.close();
-      // this.router.navigate(['dashboardhome/createSurvey']);
+      this.router.navigate(['/dashboard']);
     }, error => {
       this.loading = false;
     });

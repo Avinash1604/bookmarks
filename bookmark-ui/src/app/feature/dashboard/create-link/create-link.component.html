@@ -1,0 +1,78 @@
+<div class="content">
+  <div class="col-xl-12 mb-5 mb-xl-0 car-layout">
+    <mat-icon
+      class="material-icons color_green close_icon"
+      (click)="closeModal()"
+      >close
+    </mat-icon>
+    <form [formGroup]="shortUrlForm" #createLink="ngForm">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">
+          <div class="new-link-title">Paste the URL to be shortened</div>
+          <div class="text-area-layout">
+            <label class="text-area-label">Destination URL</label>
+            <textarea
+              class="text-area"
+              formControlName="longUrl"
+              name="trim_url"
+              placeholder="Type or paste a link (URL)"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="expiry-label">Expiry date</div>
+        <mat-form-field class="expiry-date">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="expiryDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="title">Title</div>
+        <mat-form-field class="form-fields-full-width">
+          <input
+            matInput
+            formControlName="title"
+            required
+            type="text"
+            name="title"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="desc-area-layout">
+          <label class="text-area-label">Description</label>
+          <textarea
+            class="text-area"
+            formControlName="desc"
+            name="desc"
+            placeholder="Description"
+            required
+          ></textarea>
+        </div>
+      </div>
+      <div class="row create-link">
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-create-link"
+          [class.spinner]="loading"
+          [disabled]="!shortUrlForm.valid"
+          [disabled]="loading"
+          (click)="requestShortUrl()"
+        >
+          Create Link
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

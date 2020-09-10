@@ -21,7 +21,10 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
         val urlEntity = UrlEntity(
                 longUrl = urlRequest.longUrl,
                 expiryDate = urlRequest.expiryDate,
-                createdOn = LocalDateTime.now()
+                createdOn = LocalDateTime.now(),
+                title = urlRequest.title,
+                description = urlRequest.description,
+                isBookmark = urlRequest.isBookmark
         )
         return urlRepository.save(urlEntity).mapEntityToDto()
     }
@@ -38,11 +41,17 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
 
     override fun createUser(user: UserRequest): User {
         val userEntity = UserEntity(
-                 email =  user.email,
+                email = user.email,
                 userName = user.userName,
                 password = user.password
         )
         return userRepository.save(userEntity).mapEntityToDto()
+    }
+
+    override fun getAllUrls(): List<Url> {
+        return urlRepository.findAllByIsBookmark(true).map {
+            it.mapEntityToDto()
+        }
     }
 
     override fun getUserByCredentials(user: UserRequest): User {

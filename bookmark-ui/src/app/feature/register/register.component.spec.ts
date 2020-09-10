@@ -72,6 +72,6 @@ describe('RegisterComponent', () => {
     spyOn(userService, 'creatUser').and.returnValue(of(user));
     component.user = user;
     component.register();
-    //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 });

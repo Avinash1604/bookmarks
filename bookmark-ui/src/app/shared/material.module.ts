@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ImageFavIconDirective } from './image-fav-icon.directive';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatSlideToggleModule,
         MatIconModule,
         MatExpansionModule
-    ]
+    ],
+    declarations: [ImageFavIconDirective]
 })
 export class MaterialModule {
 

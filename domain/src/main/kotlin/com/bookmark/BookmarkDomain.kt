@@ -26,4 +26,11 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     override fun getUserByCredentials(user: UserRequest): User {
         return bookmarkDatabaseService.getUserByCredentials(user);
     }
+
+    override fun getShortUrls(baseUrl: String): List<Url> {
+        return bookmarkDatabaseService.getAllUrls().map {
+            it.shortUrl = baseUrl+'/'+BaseConversion.encode(it.id)
+            it
+        }
+    }
 }
