@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UrlRepository: JpaRepository<UrlEntity, Long> {
-     fun findAllByIsBookmark(b: Boolean): List<UrlEntity>
+     fun findAllByBookmarked(bookmark: Boolean): List<UrlEntity>
 }

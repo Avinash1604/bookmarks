@@ -24,7 +24,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
                 createdOn = LocalDateTime.now(),
                 title = urlRequest.title,
                 description = urlRequest.description,
-                bookmarked = urlRequest.isBookmark
+                bookmarked = urlRequest.bookmarked
         )
         return urlRepository.save(urlEntity).mapEntityToDto()
     }
@@ -49,7 +49,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
     }
 
     override fun getAllUrls(): List<Url> {
-        return urlRepository.findAllByIsBookmark(true).map {
+        return urlRepository.findAllByBookmarked(true).map {
             it.mapEntityToDto()
         }
     }

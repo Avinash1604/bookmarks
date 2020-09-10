@@ -41,7 +41,7 @@ class AcceptanceTest {
 
     @Test
     fun `list all the bookmarked short urls`(){
-        val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30") , title = "test", description = "test",isBookmark = true)
+        val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30") , title = "test", description = "test",bookmarked = true)
         bookmarkDomain.createShortUrl(urlRequest, "test");
         Assertions.assertThat(bookmarkDomain.getShortUrls("http://localhost").size).isEqualTo(1)
     }

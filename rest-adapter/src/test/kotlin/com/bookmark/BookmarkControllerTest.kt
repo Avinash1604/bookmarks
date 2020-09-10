@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
 import java.time.LocalDate
@@ -31,7 +30,7 @@ class BookmarkControllerTest {
     @Test
     fun createShortUrl() {
         // given
-        val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"), title = "test", description = "desc", isBookmark = true)
+        val urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"), title = "test", description = "desc", bookmarked = true)
         val request: HttpEntity<UrlRequest> = HttpEntity(urlRequest)
         Mockito.`when`(bookmarkService!!.createShortUrl(urlRequest, "http://localhost:$port")).thenReturn(Url(longUrl = "https://mkyong.com/spring-boot/test/spring/boo", expiryDate = LocalDate.parse("2020-09-30"), shortUrl = "https://localhost:8080/abcd", id = 1))
         //when
