@@ -69,6 +69,6 @@ describe('LoginComponent', () => {
     component.password = 'password';
     spyOn(userService, 'getUser').and.returnValue(of(user));
     component.login();
-    //  expect(router.navigate).toHaveBeenCalledWith(['dashboardhome/createSurvey']);
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 });

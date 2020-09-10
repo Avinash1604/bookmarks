@@ -8,5 +8,8 @@ data class Url (
     var id: Long,
     val expiryDate: LocalDate,
     var shortUrl: String? = null,
-    var createdOn: LocalDateTime? = null
+    var createdOn: LocalDateTime? = null,
+    val title: String? = null,
+    val description: String? = null,
+    val isBookmark: Boolean? = false
 )

@@ -20,6 +20,15 @@ data class UrlEntity(
         @Column(name = "EXPIRY_DATE")
         val expiryDate: LocalDate? = null,
 
+        @Column(name = "TITLE")
+        val title: String? = null,
+
+        @Column(name = "DESCRIPTION")
+        val description: String? = null,
+
+        @Column(name = "IS_BOOKMARK")
+        val isBookmark: Boolean? = false,
+
         @Column(name = "CREATED_ON")
         val createdOn: LocalDateTime? = null
 ) {
@@ -28,7 +37,10 @@ data class UrlEntity(
                 longUrl = longUrl!!,
                 id = id!!,
                 expiryDate = expiryDate!!,
-                createdOn = createdOn
+                createdOn = createdOn,
+                title = title,
+                description = description,
+                isBookmark = isBookmark
         )
     }
 }

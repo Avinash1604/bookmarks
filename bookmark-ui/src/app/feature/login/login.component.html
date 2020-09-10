@@ -7,5 +7,5 @@
             <input matInput placeholder="password" required type="password"  [(ngModel)]="password" name="password" autocomplete="on">
     </mat-form-field>
     <div class="login-btn-container"><button mat-button mat-raised-button color="primary" 
-        class="login" (click)="login()" [disabled]="!loginForm.form.valid">Login</button></div>
+        class="login" (click)="login()" [disabled]="!loginForm.form.valid"  [class.spinner]="loading" [disabled]="loading">Login</button></div>
 </form>
