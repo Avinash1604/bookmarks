@@ -62,7 +62,8 @@ class BookmarkControllerTest {
         val request: HttpEntity<UrlRequest> = HttpEntity(urlRequest)
         //when
         val url = BASE_URL + port + API_END_POINTS
-        val response = restTemplate.put(url,  request)
+        val response = restTemplate.exchange(url, HttpMethod.PUT,request, Void::class.java)
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
         //then
     }
 
@@ -70,7 +71,8 @@ class BookmarkControllerTest {
     fun deleteAShortUrls() {
         //when
         val url = "$BASE_URL$port$API_END_POINTS/1"
-        val response = restTemplate.delete(url)
+        val response = restTemplate.exchange(url,HttpMethod.DELETE,null, Void::class.java)
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
         //then
     }
 

@@ -57,9 +57,9 @@ class BookmarkController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    fun updateShortUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity.BodyBuilder {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun updateShortUrl(@RequestBody urlRequest: UrlRequest) {
         bookmarkService.updateBookmarkUrl(urlRequest)
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
     }
 
     @DeleteMapping(value = ["/urls/shorts/{id}"])
@@ -70,9 +70,9 @@ class BookmarkController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    fun deleteShortUrl(@PathVariable id: Long): ResponseEntity.BodyBuilder {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun deleteShortUrl(@PathVariable id: Long) {
         bookmarkService.deleteBookmarkUrl(id)
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
     }
 
     private fun getHostName(): String {
