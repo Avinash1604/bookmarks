@@ -48,6 +48,33 @@ class BookmarkController(private val bookmarkService: BookmarkService) {
         return UrlDto(details = bookmarkService.getShortUrls(baseUrl))
     }
 
+
+    @PutMapping(value = ["/urls/shorts"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Update a short url", description = "Update the bookmark link")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully updated a short url", content = [
+            (Content( schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    fun updateShortUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity.BodyBuilder {
+        bookmarkService.updateBookmarkUrl(urlRequest)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+    }
+
+    @DeleteMapping(value = ["/urls/shorts/{id}"])
+    @Operation(summary = "delete a short url", description = "delete the bookmark link")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully deleted a short url", content = [
+            (Content( schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    fun deleteShortUrl(@PathVariable id: Long): ResponseEntity.BodyBuilder {
+        bookmarkService.deleteBookmarkUrl(id)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+    }
+
     private fun getHostName(): String {
         return ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
     }

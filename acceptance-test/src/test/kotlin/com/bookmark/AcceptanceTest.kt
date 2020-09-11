@@ -60,6 +60,25 @@ class AcceptanceTest {
         Assertions.assertThat(response.userId).isEqualTo(userRepository.findAll()[0].userId)
     }
 
+    @Test
+    fun `update short url and store details on database`(){
+        var urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"), description = "test",title = "test", bookmarked = true)
+        val response = bookmarkDomain.createShortUrl(urlRequest, "http://");
+        urlRequest.description = "updated"
+        urlRequest.id = response.id
+        bookmarkDomain.updateBookmarkUrl(urlRequest)
+        Assertions.assertThat("updated").isEqualTo(urlRepository.findAll()[0].description)
+    }
+
+    @Test
+    fun `delete a short url from database`(){
+        var urlRequest = UrlRequest(longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"), description = "test",title = "test", bookmarked = true)
+        val response = bookmarkDomain.createShortUrl(urlRequest, "http://");
+        bookmarkDomain.deleteBookmarkUrl(response.id)
+        Assertions.assertThat(0).isEqualTo(urlRepository.findAll().size)
+    }
+
+
 
     private fun getUserRequestMock(): UserRequest {
         return UserRequest(userName = "user 1",email = "user1@gmaill.com",password = "pass")

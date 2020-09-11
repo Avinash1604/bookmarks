@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import java.time.LocalDate
 
@@ -43,7 +44,7 @@ class BookmarkControllerTest {
     }
 
     @Test
-    fun getAllShortUrls(){
+    fun getAllShortUrls() {
         //when
         val url = BASE_URL + port + API_END_POINTS
         Mockito.`when`(bookmarkService!!.getShortUrls("http://localhost:$port")).thenReturn(listOf(Url(longUrl = "https://mkyong.com/spring-boot/test/spring/boo", expiryDate = LocalDate.parse("2020-09-30"), shortUrl = "https://localhost:8080/abcd", id = 1, title = "test", description = "test")))
@@ -52,6 +53,25 @@ class BookmarkControllerTest {
         Assertions.assertThat(response).isNotNull
         Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
         Assertions.assertThat(response.body.details.size).isEqualTo(1)
+    }
+
+    @Test
+    fun updateShortUrl() {
+        // given
+        val urlRequest = UrlRequest(id = 1, longUrl = "https://mkyong.com/spring-boot/test/spring/boot", expiryDate = LocalDate.parse("2020-09-30"), title = "test", description = "desc", bookmarked = true)
+        val request: HttpEntity<UrlRequest> = HttpEntity(urlRequest)
+        //when
+        val url = BASE_URL + port + API_END_POINTS
+        val response = restTemplate.put(url,  request)
+        //then
+    }
+
+    @Test
+    fun deleteAShortUrls() {
+        //when
+        val url = "$BASE_URL$port$API_END_POINTS/1"
+        val response = restTemplate.delete(url)
+        //then
     }
 
     companion object {

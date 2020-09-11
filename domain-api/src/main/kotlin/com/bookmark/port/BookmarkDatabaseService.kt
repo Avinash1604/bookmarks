@@ -12,4 +12,6 @@ interface BookmarkDatabaseService {
      fun createUser(user: UserRequest): User
      fun getUserByCredentials(user: UserRequest): User
      fun getAllUrls(): List<Url>
+     fun updateBookmarkUrl(baseUrl: UrlRequest)
+     fun deleteBookmarkUrl(id: Long)
 }

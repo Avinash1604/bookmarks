@@ -76,4 +76,22 @@ describe('UrlService', () => {
     });
     service.isBookMarkLinkAdded(true);
   });
+
+  it('should update a short url', () => {
+    const url = {} as Url;
+    url.longUrl = 'http://test/test/test';
+    url.expiryDate = '2020-12-12';
+    service.updateShortUrl(url).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.bookmarkUrl);
+    expect(req.request.method).toEqual('PUT');
+    expect(req.request.body).toEqual(url);
+  });
+
+  it('should delete a short url', () => {
+    service.deleteShortUrl(1).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.bookmarkUrl + '/1');
+    expect(req.request.method).toEqual('DELETE');
+  });
 });

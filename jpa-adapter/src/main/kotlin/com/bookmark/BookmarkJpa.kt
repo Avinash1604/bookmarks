@@ -32,7 +32,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
     override fun getOriginalUrlByUrl(urlId: Long): String {
         val urlEntity = urlRepository.findById(urlId)
                 .orElseThrow { EntityNotFoundException("There is no entity with") }
-        if (urlEntity.expiryDate != null && (urlEntity.expiryDate < LocalDate.now())) {
+        if (urlEntity.expiryDate != null && (urlEntity.expiryDate!! < LocalDate.now())) {
             urlRepository.delete(urlEntity)
             throw EntityNotFoundException("Link expired!")
         }
@@ -57,5 +57,19 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
     override fun getUserByCredentials(user: UserRequest): User {
         return userRepository.findByEmailAndPassword(user.email, user.password).mapEntityToDto()
 
+    }
+
+    override fun updateBookmarkUrl(baseUrl: UrlRequest) {
+        urlRepository.findById(baseUrl.id).ifPresent {
+            it.description = baseUrl.description ?: it.description
+            it.title = baseUrl.title ?: it.title
+            it.expiryDate = baseUrl.expiryDate ?: it.expiryDate
+            it.longUrl = baseUrl.longUrl ?: it.longUrl
+            urlRepository.save(it)
+        }
+    }
+
+    override fun deleteBookmarkUrl(id: Long) {
+        urlRepository.deleteById(id)
     }
 }

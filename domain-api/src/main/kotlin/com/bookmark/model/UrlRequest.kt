@@ -3,9 +3,10 @@ package com.bookmark.model
 import java.time.LocalDate
 
 data class UrlRequest(
-        val longUrl: String,
-        val expiryDate: LocalDate,
+        var id: Long? = null,
+        val longUrl: String? = null,
+        val expiryDate: LocalDate? = null,
         val title: String? = null,
-        val description: String? = null,
+        var description: String? = null,
         val bookmarked: Boolean? = false
 )
