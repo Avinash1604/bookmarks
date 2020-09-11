@@ -1,7 +1,7 @@
 <div class="container">
   <div layout="row">
     <div class="cardContainer" *ngFor="let url of bookmarkUrls">
-      <div class="card" [ngClass] = "borderStyleExpired(url.expiryDate)">
+      <div class="card" [ngClass]="borderStyleExpired(url.expiryDate)">
         <div class="header">
           <div class="fav-image">
             <img
@@ -17,8 +17,8 @@
               (click)="copy(url.shortUrl)"
               >content_copy
             </mat-icon>
-            <mat-icon class="material-icons color_green">edit </mat-icon>
-            <mat-icon class="material-icons color_green">delete </mat-icon>
+            <mat-icon class="material-icons color_green" (click)="updateLink(url)">edit </mat-icon>
+            <mat-icon class="material-icons color_green" (click)="delete(url.id)">delete </mat-icon>
           </div>
         </div>
         <div class="card-container">
@@ -28,3 +28,7 @@
     </div>
   </div>
 </div>
+
+<div class="loading-indicator" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+ </div>

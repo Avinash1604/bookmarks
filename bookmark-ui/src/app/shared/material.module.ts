@@ -21,6 +21,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ImageFavIconDirective } from './image-fav-icon.directive';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ImageFavIconDirective } from './image-fav-icon.directive';
         MatPaginatorModule,
         MatSlideToggleModule,
         MatIconModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         MatButtonModule,
@@ -67,7 +69,8 @@ import { ImageFavIconDirective } from './image-fav-icon.directive';
         MatSlideToggleModule,
         MatIconModule,
         MatExpansionModule,
-        ImageFavIconDirective
+        ImageFavIconDirective,
+        MatProgressSpinnerModule
     ],
     declarations: [ImageFavIconDirective]
 })

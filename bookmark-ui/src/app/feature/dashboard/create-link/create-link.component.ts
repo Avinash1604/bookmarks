@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,12 +16,17 @@ export class CreateLinkComponent implements OnInit {
   shortUrl: string;
   shortUrlForm: FormGroup;
   loading = false;
+  urlDetails: Url;
+  isUpdated: boolean;
   constructor(
     private dialogRef: MatDialogRef<CreateLinkComponent>,
     private datePipe: DatePipe,
     private snackBar: MatSnackBar,
-    private urlService: UrlService
-  ) {}
+    private urlService: UrlService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.urlDetails = data?.urlDetails;
+  }
 
   ngOnInit(): void {
     this.shortUrlForm = new FormGroup({
@@ -30,6 +35,13 @@ export class CreateLinkComponent implements OnInit {
       title: new FormControl(),
       desc: new FormControl(),
     });
+    if (this.urlDetails){
+      this.isUpdated = true;
+      this.shortUrlForm.controls.longUrl.setValue(this.urlDetails.longUrl);
+      this.shortUrlForm.controls.expiryDate.setValue(this.urlDetails.expiryDate);
+      this.shortUrlForm.controls.title.setValue(this.urlDetails.title);
+      this.shortUrlForm.controls.desc.setValue(this.urlDetails.description);
+    }
   }
   requestShortUrl() {
     this.loading = true;
@@ -43,6 +55,11 @@ export class CreateLinkComponent implements OnInit {
     url.expiryDate = expiry
       ? this.datePipe.transform(expiry, 'yyyy-MM-dd')
       : null;
+    if (this.isUpdated){
+      url.id = this.urlDetails.id;
+      this.edit(url);
+      return;
+      }
     this.urlService.requestShortUrl(url).subscribe(
       (data: Url) => {
         this.loading = false;
@@ -54,6 +71,15 @@ export class CreateLinkComponent implements OnInit {
       }
     );
 
+  }
+
+
+  edit(url: Url) {
+    this.loading = true;
+    this.urlService.updateShortUrl(url).subscribe((data) => {
+       this.loading = false;
+       this.dialogRef.close(1);
+    });
   }
 
   copy() {

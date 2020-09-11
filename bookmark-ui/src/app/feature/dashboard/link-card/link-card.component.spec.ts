@@ -11,6 +11,19 @@ import { of } from 'rxjs';
 import { url } from 'inspector';
 import { userInfo } from 'os';
 import { UserService } from 'src/app/shared/service/user.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+export class MatDialogMock {
+  open() {
+    return {
+      afterClosed: () => of({ action: true }),
+    };
+  }
+}
+
+export class MatDialogRefMock {
+  close() {}
+}
 
 describe('LinkCardComponent', () => {
   let component: LinkCardComponent;
@@ -52,7 +65,11 @@ describe('LinkCardComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      providers: [UrlService],
+      providers: [
+        UrlService,
+        { provide: MatDialog, useClass: MatDialogMock },
+        { provide: MatDialogRef, useClass: MatDialogRefMock },
+      ],
     }).compileComponents();
   }));
 
@@ -108,5 +125,18 @@ describe('LinkCardComponent', () => {
     expect(component.getFavIcon('https://stackoverflow.com/questions')).toEqual(
       'https://stackoverflow.com/favicon.ico'
     );
+  });
+
+  it('should delete a url', () => {
+    component.bookmarkUrls = bookmarkResponse.details;
+    spyOn(urlService, 'deleteShortUrl').and.returnValue(of('success'));
+    component.delete(114);
+    expect(urlService.deleteShortUrl).toHaveBeenCalledWith(114);
+  });
+
+
+  it('should update the url data', () => {
+    component.bookmarkUrls = bookmarkResponse.details;
+    component.updateLink(bookmarkResponse.details[0]);
   });
 });

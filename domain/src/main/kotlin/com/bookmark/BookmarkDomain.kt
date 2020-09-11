@@ -33,4 +33,12 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
             it
         }
     }
+
+    override fun updateBookmarkUrl(baseUrl: UrlRequest) {
+        return bookmarkDatabaseService.updateBookmarkUrl(baseUrl);
+    }
+
+    override fun deleteBookmarkUrl(id: Long) {
+        return bookmarkDatabaseService.deleteBookmarkUrl(id);
+    }
 }

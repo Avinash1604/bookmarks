@@ -70,7 +70,7 @@
           [disabled]="loading"
           (click)="requestShortUrl()"
         >
-          Create Link
+          {{ isUpdated ? "Update" : "Create Link" }}
         </button>
       </div>
     </form>

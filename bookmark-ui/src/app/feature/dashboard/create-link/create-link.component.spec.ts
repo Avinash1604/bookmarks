@@ -7,7 +7,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from 'src/app/shared/service/user.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Url } from 'src/app/shared/model/url';
 import { UrlService } from 'src/app/shared/service/url.service';
@@ -46,6 +50,7 @@ describe('CreateLinkComponent', () => {
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
         { provide: Router, useValue: router },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         UrlService,
       ],
     }).compileComponents();
@@ -74,4 +79,19 @@ describe('CreateLinkComponent', () => {
     expect(component.loading).toEqual(false);
   });
 
+  it('should update a short url', () => {
+    const url = {} as Url;
+    url.id = 1;
+    url.longUrl = 'http://test/test/test';
+    url.expiryDate = '2020-12-12';
+    url.title = 'title';
+    url.description = 'desc';
+    url.bookmarked = true;
+    component.urlDetails = url;
+    spyOn(urlService, 'updateShortUrl').and.returnValue(of('data'));
+    component.ngOnInit();
+    component.requestShortUrl();
+    expect(component.isUpdated).toEqual(true);
+    expect(component.loading).toEqual(false);
+  });
 });

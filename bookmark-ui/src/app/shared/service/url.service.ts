@@ -23,6 +23,14 @@ export class UrlService {
     return this.http.get<any>(this.bookmarkUrl);
   }
 
+ public deleteShortUrl(id: number): Observable<any> {
+    return this.http.delete<any>(this.bookmarkUrl + '/' + id);
+  }
+
+  public updateShortUrl(url: Url): Observable<any> {
+    return this.http.put(this.bookmarkUrl, url);
+  }
+
   public isBookMarkLinkAdded(added: boolean){
     this.addBookMarkLink.next(added);
   }

@@ -15,16 +15,16 @@ data class UrlEntity(
         val id: Long? = null,
 
         @Column(name = "LONG_URL")
-        val longUrl: String? = null,
+        var longUrl: String? = null,
 
         @Column(name = "EXPIRY_DATE")
-        val expiryDate: LocalDate? = null,
+        var expiryDate: LocalDate? = null,
 
         @Column(name = "TITLE")
-        val title: String? = null,
+        var title: String? = null,
 
         @Column(name = "DESCRIPTION")
-        val description: String? = null,
+        var description: String? = null,
 
         @Column(name = "IS_BOOKMARK")
         val bookmarked: Boolean? = false,
