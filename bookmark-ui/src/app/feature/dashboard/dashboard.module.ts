@@ -5,15 +5,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { CreateLinkComponent } from './create-link/create-link.component';
+import { LinkCardComponent } from './link-card/link-card.component';
 
 const routes: Routes = [
   {
-    path: '' , component: DashboardHomeComponent
-  }
+    path: '' , component: DashboardHomeComponent,
+    children: [
+      { path: '', redirectTo: 'links', pathMatch: 'full' },
+      {
+        path: 'links', component: LinkCardComponent
+      },
+      {
+        path: 'all-links', component: LinkCardComponent
+      }
+    ]
+  },
 ];
 
 @NgModule({
-  declarations: [DashboardHomeComponent, CreateLinkComponent],
+  declarations: [DashboardHomeComponent, CreateLinkComponent, LinkCardComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

@@ -66,7 +66,8 @@ import { ImageFavIconDirective } from './image-fav-icon.directive';
         MatPaginatorModule,
         MatSlideToggleModule,
         MatIconModule,
-        MatExpansionModule
+        MatExpansionModule,
+        ImageFavIconDirective
     ],
     declarations: [ImageFavIconDirective]
 })

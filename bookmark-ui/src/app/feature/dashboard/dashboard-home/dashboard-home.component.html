@@ -5,13 +5,13 @@
     class="fixed-header"
     class="mat-elevation-z4"
   >
-    <!-- ommited -->
-    <h1 class="title-center">Bookmark</h1>
-    <div [ngStyle]="{ display: screenWidth > 840 ? 'none' : 'block' }">
+    <div class="menu">
       <button mat-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
+    <!-- ommited -->
+    <h1 class="title-center">Bookmark</h1>
   </mat-toolbar>
   <mat-sidenav-container #sidenavCon class="side-nave-container">
     <mat-sidenav
@@ -41,12 +41,14 @@
             </div>
           </mat-list-option>
           <mat-list-option>
+            <a [routerLink]="['/dashboard/all-links']">
             <div class="sub-menu">
-              ALL LINK
+              ALL LINKS
               <mat-icon class="material-icons color_green"
                 >keyboard_arrow_right
               </mat-icon>
             </div>
+            </a>
           </mat-list-option>
           <mat-list-option>
             <div class="sub-menu">
