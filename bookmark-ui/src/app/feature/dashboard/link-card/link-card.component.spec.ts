@@ -9,6 +9,8 @@ import { UrlService } from 'src/app/shared/service/url.service';
 import { DatePipe } from '@angular/common';
 import { of } from 'rxjs';
 import { url } from 'inspector';
+import { userInfo } from 'os';
+import { UserService } from 'src/app/shared/service/user.service';
 
 describe('LinkCardComponent', () => {
   let component: LinkCardComponent;
@@ -83,7 +85,28 @@ describe('LinkCardComponent', () => {
   });
 
   it('should get a notification when new link is added', () => {
-    urlService.isBookMarkLinkAdded(true);
     component.newlinkAdded();
+    urlService.isBookMarkLinkAdded(true);
+    urlService.getBookmarkAdded.subscribe((data) => {
+      expect(data).toEqual(true);
+    });
+  });
+
+  it('should open new window and redirect to web app when user clicks on card', () => {
+    spyOn(window, 'open');
+    component.openUrlOnCardClick('http://localhost');
+    expect(window.open).toHaveBeenCalledWith('http://localhost', '_blank');
+  });
+
+  it('should copy object when clicks on copy', () => {
+    spyOn(component.clipboard, 'copy');
+    component.copy('test');
+    expect(component.clipboard.copy).toHaveBeenCalledWith('test');
+  });
+
+  it('should get a fav ion url for the given url', () => {
+    expect(component.getFavIcon('https://stackoverflow.com/questions')).toEqual(
+      'https://stackoverflow.com/favicon.ico'
+    );
   });
 });

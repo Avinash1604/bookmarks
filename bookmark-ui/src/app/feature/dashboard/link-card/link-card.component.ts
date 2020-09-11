@@ -15,7 +15,7 @@ export class LinkCardComponent implements OnInit, OnDestroy {
   item = [1, 2, 3, 4, 5, 6, 7];
   constructor(
     private urlService: UrlService,
-    private clipboard: Clipboard,
+    public clipboard: Clipboard,
     private snackBar: MatSnackBar
   ) {}
   bookmarkUrls: Url[];
