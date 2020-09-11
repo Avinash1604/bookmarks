@@ -1,10 +1,17 @@
 :host ::ng-deep {
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
   .fixed-header {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
     width: 100% !important;
+  }
+  .menu {
+    float: left;
   }
   .inner-sidenav-content {
     overflow: auto;
@@ -67,8 +74,8 @@
     }
   }
 
-  .sub-menu{
-    mat-icon{
+  .sub-menu {
+    mat-icon {
       float: right;
     }
   }
