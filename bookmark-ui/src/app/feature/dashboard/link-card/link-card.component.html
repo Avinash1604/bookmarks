@@ -1,30 +1,7 @@
 <div class="container">
   <div layout="row">
     <div class="cardContainer" *ngFor="let url of bookmarkUrls">
-      <div class="card" [ngClass]="borderStyleExpired(url.expiryDate)">
-        <div class="header">
-          <div class="fav-image">
-            <img
-              class="fav-icon"
-              [src]="getFavIcon(url.longUrl)"
-              appImageFavIcon
-            />
-          </div>
-          <div class="title">{{ url.title }}</div>
-          <div class="operations">
-            <mat-icon
-              class="material-icons color_green"
-              (click)="copy(url.shortUrl)"
-              >content_copy
-            </mat-icon>
-            <mat-icon class="material-icons color_green" (click)="updateLink(url)">edit </mat-icon>
-            <mat-icon class="material-icons color_green" (click)="delete(url.id)">delete </mat-icon>
-          </div>
-        </div>
-        <div class="card-container">
-          <div>{{ url.description }}</div>
-        </div>
-      </div>
+      <app-bookmark-card-layout (output)="cardOperation($event)" [cardModel]="convertUrlToCardModel(url)"></app-bookmark-card-layout>
     </div>
   </div>
 </div>

@@ -1,0 +1,25 @@
+<div class="card" [ngClass]="cardModel.leftBorderStyle">
+    <div class="header">
+      <div class="fav-image">
+        <img
+          class="fav-icon"
+          [src]="cardModel.favIcon"
+          appImageFavIcon
+        />
+      </div>
+      <div class="title">{{ cardModel.title }}</div>
+      <div class="operations">
+        <mat-icon
+          class="material-icons"
+          (click)="copy()"
+          >content_copy
+        </mat-icon>
+        <mat-icon class="material-icons" (click)="update()">edit </mat-icon>
+        <mat-icon class="material-icons" (click)="delete()">delete </mat-icon>
+      </div>
+    </div>
+    <div class="card-container">
+      <div>{{ cardModel.description }}</div>
+      <mat-icon class="material-icons bottom-right" (click)="openCard()" >arrow_forward </mat-icon>
+    </div>
+  </div>

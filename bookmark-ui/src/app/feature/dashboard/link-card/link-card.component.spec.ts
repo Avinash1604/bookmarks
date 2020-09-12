@@ -12,6 +12,7 @@ import { url } from 'inspector';
 import { userInfo } from 'os';
 import { UserService } from 'src/app/shared/service/user.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Operation } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
 
 export class MatDialogMock {
   open() {
@@ -134,9 +135,37 @@ describe('LinkCardComponent', () => {
     expect(urlService.deleteShortUrl).toHaveBeenCalledWith(114);
   });
 
-
   it('should update the url data', () => {
     component.bookmarkUrls = bookmarkResponse.details;
     component.updateLink(bookmarkResponse.details[0]);
+  });
+
+  it('should create a cardModel for url model', () => {
+    const cardModel = component.convertUrlToCardModel(
+      bookmarkResponse.details[0]
+    );
+    expect(cardModel.id).toEqual(114);
+  });
+
+  it('should all card layout ouput events should work', () => {
+    component.bookmarkUrls = bookmarkResponse.details;
+    spyOn(component, 'copy');
+    const cardModel = component.convertUrlToCardModel(
+      bookmarkResponse.details[0]
+    );
+    component.cardOperation({ model: cardModel, operation: Operation.COPY });
+    expect(component.copy).toHaveBeenCalled();
+    spyOn(component, 'updateLink');
+    component.cardOperation({ model: cardModel, operation: Operation.EDIT });
+    expect(component.updateLink).toHaveBeenCalled();
+    spyOn(component, 'delete');
+    component.cardOperation({ model: cardModel, operation: Operation.DELETE });
+    expect(component.delete).toHaveBeenCalled();
+    spyOn(component, 'openUrlOnCardClick');
+    component.cardOperation({
+      model: cardModel,
+      operation: Operation.CARD_CLICK,
+    });
+    expect(component.openUrlOnCardClick).toHaveBeenCalled();
   });
 });

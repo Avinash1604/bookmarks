@@ -78,7 +78,7 @@ export class CreateLinkComponent implements OnInit {
     this.loading = true;
     this.urlService.updateShortUrl(url).subscribe((data) => {
        this.loading = false;
-       this.dialogRef.close(1);
+       this.dialogRef.close(url);
     });
   }
 

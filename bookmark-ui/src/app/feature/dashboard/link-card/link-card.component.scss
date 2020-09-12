@@ -4,48 +4,17 @@
         .left-border-green {
             border-left: 3px solid #00bf6f;
         }
+
+        .color_green{
+            color: #00bf6f;
+        }
+
         .left-border-red {
             border-left: 3px solid #FF0000;
         }
         .cardContainer {
             float: left;
             margin: 10px;
-
-            .card {
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                transition: 0.3s;
-                width: 280px;
-                height: 140px;
-                border-radius: 5px;
-                .header {
-                    height: 30px;
-                    padding: 5px;
-                    font-size: 18px;
-                    .fav-image {
-                        float: left;
-                        .fav-icon {
-                            width: 40px;
-                            height: 40px;
-                            object-fit: scale-down;
-                        }
-                    }
-                    .title {
-                        float: left;
-                        margin: 10px;
-                    }
-                    .operations {
-                        float: right;
-                        mat-icon {
-                            font-size: 18px;
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-
-            .card:hover {
-                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-            }
 
             .card-container {
                 height: 65%;
@@ -55,6 +24,12 @@
                 overflow-y: scroll;
                 align-items: center;
                 justify-content: center;
+                .bottom-right{
+                    position: absolute;
+                    bottom: 2px;
+                    right: 5px;
+                    cursor: pointer;
+                }
             }
         }
     }
