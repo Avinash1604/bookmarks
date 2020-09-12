@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLinkComponent } from '../create-link/create-link.component';
 import { ThemePalette } from '@angular/material/core';
+import { Operation, CardModel } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
 
 @Component({
   selector: 'app-link-card',
@@ -80,19 +81,19 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.updateUrlList(url);
+        this.updateUrlList(result);
       }
     });
   }
 
   updateUrlList(url: Url) {
     this.bookmarkUrls
-      .filter((urlObject) => urlObject.id === urlObject.id)
+      .filter((urlObject) => urlObject.id === url.id)
       .map((urlObj) => {
         urlObj.longUrl = url.longUrl;
         urlObj.description = url.description;
         urlObj.expiryDate = url.expiryDate;
-        urlObj.title = urlObj.title;
+        urlObj.title = url.title;
       });
   }
 
@@ -120,5 +121,36 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     return new Date(dateStr) >= new Date()
       ? 'left-border-green'
       : 'left-border-red';
+  }
+
+  cardOperation(event) {
+    const operation = event.operation;
+    const data = event.model;
+    switch (operation) {
+      case Operation.COPY:
+        this.copy(data.shortUrl);
+        break;
+      case Operation.CARD_CLICK:
+        this.openUrlOnCardClick(data.longUrl);
+        break;
+      case Operation.DELETE:
+        this.delete(data.id);
+        break;
+      case Operation.EDIT:
+        this.updateLink((this.bookmarkUrls.filter(obj => obj.id === data.id)[0]));
+        break;
+    }
+  }
+
+  convertUrlToCardModel(url: Url){
+    const cardModel = {} as CardModel;
+    cardModel.description = url.description;
+    cardModel.title = url.title;
+    cardModel.longUrl = url.longUrl;
+    cardModel.shortUrl = url.shortUrl;
+    cardModel.id = url.id;
+    cardModel.favIcon = this.getFavIcon(url.longUrl);
+    cardModel.leftBorderStyle = this.borderStyleExpired(url.expiryDate);
+    return cardModel;
   }
 }
