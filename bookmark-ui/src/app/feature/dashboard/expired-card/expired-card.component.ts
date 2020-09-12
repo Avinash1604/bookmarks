@@ -8,14 +8,17 @@ import { takeUntil } from 'rxjs/internal/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLinkComponent } from '../create-link/create-link.component';
 import { ThemePalette } from '@angular/material/core';
-import { Operation, CardModel } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
+import {
+  Operation,
+  CardModel,
+} from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
 
 @Component({
-  selector: 'app-link-card',
-  templateUrl: './link-card.component.html',
-  styleUrls: ['./link-card.component.scss'],
+  selector: 'app-expired-card',
+  templateUrl: './expired-card.component.html',
+  styleUrls: ['./expired-card.component.scss'],
 })
-export class LinkCardComponent implements OnInit, OnDestroy {
+export class ExpiredCardComponent implements OnInit {
   loading = false;
   color: ThemePalette = 'primary';
   constructor(
@@ -37,10 +40,17 @@ export class LinkCardComponent implements OnInit, OnDestroy {
       (data) => {
         this.loading = false;
         this.bookmarkUrls = data.details;
+        this.filterByDates();
       },
       (error) => {
         this.loading = false;
       }
+    );
+  }
+
+  filterByDates() {
+    this.bookmarkUrls = this.bookmarkUrls.filter((it) =>
+      this.isDateExpired(it.expiryDate)
     );
   }
 
@@ -95,6 +105,7 @@ export class LinkCardComponent implements OnInit, OnDestroy {
         urlObj.expiryDate = url.expiryDate;
         urlObj.title = url.title;
       });
+    this.filterByDates();
   }
 
   delete(id: number) {
@@ -122,14 +133,11 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     let linkExpiryDate = new Date(date);
     now.setHours(0, 0, 0, 0);
     linkExpiryDate.setHours(0, 0, 0, 0);
-    return linkExpiryDate >= now;
+    return linkExpiryDate < now;
   }
 
-
   borderStyleExpired(dateStr: string) {
-    return this.isDateExpired(dateStr)
-      ? 'left-border-green'
-      : 'left-border-red';
+    return 'left-border-red';
   }
 
   cardOperation(event) {
@@ -146,12 +154,14 @@ export class LinkCardComponent implements OnInit, OnDestroy {
         this.delete(data.id);
         break;
       case Operation.EDIT:
-        this.updateLink((this.bookmarkUrls.filter(obj => obj.id === data.id)[0]));
+        this.updateLink(
+          this.bookmarkUrls.filter((obj) => obj.id === data.id)[0]
+        );
         break;
     }
   }
 
-  convertUrlToCardModel(url: Url){
+  convertUrlToCardModel(url: Url) {
     const cardModel = {} as CardModel;
     cardModel.description = url.description;
     cardModel.title = url.title;

@@ -1,0 +1,11 @@
+<div class="container">
+    <div layout="row">
+      <div class="cardContainer" *ngFor="let url of bookmarkUrls">
+        <app-bookmark-card-layout (output)="cardOperation($event)" [cardModel]="convertUrlToCardModel(url)"></app-bookmark-card-layout>
+      </div>
+    </div>
+  </div>
+  
+  <div class="loading-indicator" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+   </div>

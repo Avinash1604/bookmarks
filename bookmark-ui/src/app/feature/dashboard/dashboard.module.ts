@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { CreateLinkComponent } from './create-link/create-link.component';
 import { LinkCardComponent } from './link-card/link-card.component';
+import { ExpiredCardComponent } from './expired-card/expired-card.component';
 
 const routes: Routes = [
   {
@@ -17,13 +18,16 @@ const routes: Routes = [
       },
       {
         path: 'all-links', component: LinkCardComponent
+      },
+      {
+        path: 'expired', component: ExpiredCardComponent
       }
     ]
   },
 ];
 
 @NgModule({
-  declarations: [DashboardHomeComponent, CreateLinkComponent, LinkCardComponent],
+  declarations: [DashboardHomeComponent, CreateLinkComponent, LinkCardComponent, ExpiredCardComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

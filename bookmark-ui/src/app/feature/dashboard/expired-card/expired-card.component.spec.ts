@@ -1,19 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LinkCardComponent } from './link-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from 'src/app/shared/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UrlService } from 'src/app/shared/service/url.service';
-import { DatePipe } from '@angular/common';
 import { of } from 'rxjs';
-import { url } from 'inspector';
-import { userInfo } from 'os';
-import { UserService } from 'src/app/shared/service/user.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Operation } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MaterialModule } from 'src/app/shared/material.module';
+import { UrlService } from 'src/app/shared/service/url.service';
+import { ExpiredCardComponent } from './expired-card.component';
+
 
 export class MatDialogMock {
   open() {
@@ -27,9 +22,9 @@ export class MatDialogRefMock {
   close() {}
 }
 
-describe('LinkCardComponent', () => {
-  let component: LinkCardComponent;
-  let fixture: ComponentFixture<LinkCardComponent>;
+describe('ExpiredCardComponent', () => {
+  let component: ExpiredCardComponent;
+  let fixture: ComponentFixture<ExpiredCardComponent>;
   let urlService: UrlService;
 
   const bookmarkResponse = {
@@ -38,28 +33,19 @@ describe('LinkCardComponent', () => {
         longUrl:
           'https://stackoverflow.com/questions/10282939/how-to-get-favicons-url-from-a-generic-webpage-in-javascript',
         id: 114,
-        expiryDate: '2020-09-14',
+        expiryDate: '2020-09-04',
         shortUrl: 'https://bookmarks-tiny.herokuapp.com/b0',
         createdOn: '2020-09-11T11:45:46.506037',
         title: 'Stack overflow',
         description: 'Testing the stack overflow link',
         bookmarked: true,
       },
-      {
-        longUrl: 'https://engineering-stream-hackathon.github.io/challenge/#/',
-        id: 115,
-        expiryDate: '2020-09-02',
-        shortUrl: 'https://bookmarks-tiny.herokuapp.com/b1',
-        createdOn: '2020-09-11T07:17:22.881053',
-        title: 'Hackathon url',
-        description: 'hackthon url bookmark  ',
-        bookmarked: true,
-      },
     ],
   };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LinkCardComponent],
+      declarations: [ ExpiredCardComponent ],
       imports: [
         BrowserAnimationsModule,
         MaterialModule,
@@ -72,12 +58,12 @@ describe('LinkCardComponent', () => {
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
-      schemas:[CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LinkCardComponent);
+    fixture = TestBed.createComponent(ExpiredCardComponent);
     component = fixture.componentInstance;
     urlService = TestBed.inject(UrlService);
     fixture.detectChanges();
@@ -100,7 +86,7 @@ describe('LinkCardComponent', () => {
       'left-border-red'
     );
     expect(component.borderStyleExpired('2025-06-20')).toEqual(
-      'left-border-green'
+      'left-border-red'
     );
   });
 
