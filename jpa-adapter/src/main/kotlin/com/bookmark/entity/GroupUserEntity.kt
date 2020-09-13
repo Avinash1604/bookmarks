@@ -1,7 +1,9 @@
 package com.bookmark.entity
 
+import com.bookmark.model.GroupUser
 import java.time.LocalDateTime
 import javax.persistence.*
+import javax.transaction.Transactional
 
 @Table(name = "T_GROUP_USER")
 @Entity
@@ -12,11 +14,12 @@ data class GroupUserEntity(
         @SequenceGenerator(name = "T_GROUP_USER_SEQUENCE", sequenceName = "T_GROUP_USER_SEQUENCE", allocationSize = 1)
         val id: Long? = null,
 
-        @Column(name = "GROUP_ID")
-        val groupId: Long? = null,
+        @ManyToOne
+        @JoinColumn(name = "GROUP_ID")
+        var group: GroupEntity? = null,
 
         @Column(name = "USER_ID")
-        val userId: Long? = null,
+        var userId: Long? = null,
 
         @Column(name = "USER_NAME")
         val userName: String? = null,
@@ -29,5 +32,4 @@ data class GroupUserEntity(
 
         @Column(name = "CREATED_ON")
         val createdOn: LocalDateTime? = null
-) {
-}
+)

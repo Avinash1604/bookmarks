@@ -1,9 +1,7 @@
 package com.bookmark
 
 import com.bookmark.exceptions.ExceptionResponse
-import com.bookmark.model.Url
-import com.bookmark.model.UrlDto
-import com.bookmark.model.UrlRequest
+import com.bookmark.model.*
 import com.bookmark.port.BookmarkService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -18,61 +16,61 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
-@RequestMapping("/api/v1/bookmarks")
-@Tag(name = "BookmarkUrl", description = "This allows user to bookmark urls and dealing with big urls problems by shortening it")
+@RequestMapping("/api/v1/bookmarks/groups")
+@Tag(name = "BookmarkGroupUrl", description = "This allows users to create and manage the groups and bookmarked urls")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
-class BookmarkController(private val bookmarkService: BookmarkService) {
-    @PostMapping(value = ["/urls/shorts"],produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Create a url and bookmark it", description = "User bookmark the urls by send request has destination url and expiry date and description")
+class BookmarkGroupController(private val bookmarkService: BookmarkService) {
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Create a group", description = "Create a group")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "201", description = "Successfully created a bookmarked url", content = [
+        ApiResponse(responseCode = "201", description = "Successfully created a group", content = [
             (Content(mediaType = "application/json", schema = Schema(implementation = Url::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    fun createShortUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity<Url> {
+    fun createGroup(@RequestBody group: Group): ResponseEntity<Group> {
         val baseUrl = getHostName()
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookmarkService.createShortUrl(urlRequest, baseUrl))
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookmarkService.createGroup(group))
     }
 
-    @GetMapping(value = ["/urls/shorts"],produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Get list of all bookmarked urls", description = "Get list of all bookmarked url")
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Get list of all bookmarked group", description = "Get list of all bookmarked group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Successfully get all results", content = [
-            (Content(mediaType = "application/json", schema = Schema(implementation = UrlDto::class)))]),
+            (Content(mediaType = "application/json", schema = Schema(implementation = GroupDto::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    fun getAllShortUrl(): UrlDto {
+    fun getAllGroup(): GroupDto {
         val baseUrl = getHostName()
-        return UrlDto(details = bookmarkService.getShortUrls(baseUrl))
+        return GroupDto(details = bookmarkService.getAllGroup(baseUrl))
     }
 
 
-    @PutMapping(value = ["/urls/shorts"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Update a bookmarked urls", description = "Update the bookmark details")
+    @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Update a group", description = "Update a group")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "204", description = "Successfully updated a bookmarked url", content = [
-            (Content( schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "204", description = "Successfully updated a group", content = [
+            (Content(schema = Schema(implementation = Void::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun updateShortUrl(@RequestBody urlRequest: UrlRequest) {
-        bookmarkService.updateBookmarkUrl(urlRequest)
+    fun updateGroup(@RequestBody group: Group) {
+        bookmarkService.updateGroup(group)
     }
 
-    @DeleteMapping(value = ["/urls/shorts/{id}"])
-    @Operation(summary = "delete a short url", description = "delete the bookmark link")
+    @DeleteMapping(value = ["/{id}"])
+    @Operation(summary = "delete a group", description = "delete a group")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "204", description = "Successfully deleted a bookmarked url", content = [
-            (Content( schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "204", description = "Successfully deleted a group", content = [
+            (Content(schema = Schema(implementation = Void::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun deleteShortUrl(@PathVariable id: Long) {
-        bookmarkService.deleteBookmarkUrl(id)
+        bookmarkService.deleteGroup(id)
     }
 
     private fun getHostName(): String {

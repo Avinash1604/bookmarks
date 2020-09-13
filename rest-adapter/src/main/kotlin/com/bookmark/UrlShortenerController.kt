@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/v1/urls/shorts")
-@Tag(name = "URL", description = "This allows user to dealing with big urls problems by shorting it")
+@Tag(name = "URL", description = "This allows user to dealing with big urls problems by shortening it")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class UrlShortenerController(private val bookmarkService: BookmarkService) {
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])

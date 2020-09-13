@@ -78,6 +78,6 @@ class BookmarkControllerTest {
 
     companion object {
         private const val BASE_URL = "http://localhost:"
-        private const val API_END_POINTS = "/api/v1/bookmark/urls/shorts"
+        private const val API_END_POINTS = "/api/v1/bookmarks/urls/shorts"
     }
 }

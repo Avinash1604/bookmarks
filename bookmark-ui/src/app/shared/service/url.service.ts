@@ -11,7 +11,7 @@ export class UrlService {
 
   baseUrl = 'https://bookmarks-tiny.herokuapp.com/api/v1/urls/shorts';
   bookmarkUrl =
-    'https://bookmarks-tiny.herokuapp.com/api/v1/bookmark/urls/shorts';
+    'https://bookmarks-tiny.herokuapp.com/api/v1/bookmarks/urls/shorts';
 
   constructor(private http: HttpClient) {}
 
