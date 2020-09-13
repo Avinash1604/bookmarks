@@ -118,8 +118,8 @@ export class LinkCardComponent implements OnInit, OnDestroy {
   }
 
   isDateExpired(date: string) {
-    let now = new Date();
-    let linkExpiryDate = new Date(date);
+    const now = new Date();
+    const linkExpiryDate = new Date(date);
     now.setHours(0, 0, 0, 0);
     linkExpiryDate.setHours(0, 0, 0, 0);
     return linkExpiryDate >= now;

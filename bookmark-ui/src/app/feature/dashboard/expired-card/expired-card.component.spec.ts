@@ -59,7 +59,7 @@ describe('ExpiredCardComponent', () => {
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
-      schemas:[CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
