@@ -1,9 +1,6 @@
 package com.bookmark
 
-import com.bookmark.model.Url
-import com.bookmark.model.UrlRequest
-import com.bookmark.model.User
-import com.bookmark.model.UserRequest
+import com.bookmark.model.*
 import com.bookmark.port.BookmarkDatabaseService
 import com.bookmark.port.BookmarkService
 
@@ -40,5 +37,21 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
 
     override fun deleteBookmarkUrl(id: Long) {
         return bookmarkDatabaseService.deleteBookmarkUrl(id);
+    }
+
+    override fun createGroup(group: Group): Group {
+        return bookmarkDatabaseService.createGroup(group)
+    }
+
+    override fun getAllGroup(baseUrl: String): List<Group> {
+        return bookmarkDatabaseService.getAllGroup()
+    }
+
+    override fun updateGroup(group: Group) {
+        return bookmarkDatabaseService.updateGroup(group);
+    }
+
+    override fun deleteGroup(id: Long) {
+        return bookmarkDatabaseService.deleteGroup(id);
     }
 }

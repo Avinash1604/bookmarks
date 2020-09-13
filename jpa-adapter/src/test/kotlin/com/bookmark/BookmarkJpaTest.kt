@@ -1,7 +1,7 @@
 package com.bookmark
 
-import com.bookmark.model.UrlRequest
-import com.bookmark.model.UserRequest
+import com.bookmark.model.*
+import com.bookmark.repository.GroupRepository
 import com.bookmark.repository.UrlRepository
 import com.bookmark.repository.UserRepository
 import org.assertj.core.api.Assertions
@@ -24,10 +24,14 @@ class BookmarkJpaTest{
     @Autowired
     lateinit var userRepository: UserRepository
 
+    @Autowired
+    lateinit var groupRepository: GroupRepository
+
     @BeforeEach
     fun init(){
         userRepository.deleteAll()
         urlRepository.deleteAll()
+        groupRepository.deleteAll()
     }
 
     @Test
@@ -73,6 +77,31 @@ class BookmarkJpaTest{
         val response = bookmarkJpa.createShortUrl(urlRequest);
         bookmarkJpa.deleteBookmarkUrl(response.id)
         Assertions.assertThat(0).isEqualTo(urlRepository.findAll().size)
+    }
+
+    @Test
+    fun `create a group and store details on database`(){
+        val response = bookmarkJpa.createGroup(getUserGroupMock());
+        Assertions.assertThat(response.groupName).isEqualTo("atom")
+    }
+
+
+    private fun getUserGroupMock(): Group{
+        return Group(
+                groupName = "atom",
+                groupContext = GroupContext.USER,
+                groupContextName = "test",
+                users = listOf(groupUser())
+        )
+    }
+
+    private fun groupUser(): GroupUser {
+        return GroupUser(
+                userId = 1,
+                userName = "user1",
+                email = "user1@gmail.com",
+                roleName = "admin"
+        )
     }
 
     private fun getUserRequestMock(): UserRequest {

@@ -1,17 +1,17 @@
 package com.bookmark.port
 
-import com.bookmark.model.Url
-import com.bookmark.model.UrlRequest
-import com.bookmark.model.User
-import com.bookmark.model.UserRequest
+import com.bookmark.model.*
 
 interface BookmarkDatabaseService {
     fun createShortUrl(urlRequest: UrlRequest): Url
     fun getOriginalUrlByUrl(urlId: Long): String
-
-     fun createUser(user: UserRequest): User
-     fun getUserByCredentials(user: UserRequest): User
-     fun getAllUrls(): List<Url>
-     fun updateBookmarkUrl(baseUrl: UrlRequest)
-     fun deleteBookmarkUrl(id: Long)
+    fun createUser(user: UserRequest): User
+    fun getUserByCredentials(user: UserRequest): User
+    fun getAllUrls(): List<Url>
+    fun updateBookmarkUrl(baseUrl: UrlRequest)
+    fun deleteBookmarkUrl(id: Long)
+    fun createGroup(group: Group): Group
+    fun getAllGroup(): List<Group>
+    fun updateGroup(group: Group)
+    fun deleteGroup(id: Long)
 }

@@ -13,8 +13,9 @@ data class GroupUrlEntity(
         @SequenceGenerator(name = "T_GROUP_URL_SEQUENCE", sequenceName = "T_GROUP_URL_SEQUENCE", allocationSize = 1)
         val id: Long? = null,
 
-        @Column(name = "GROUP_ID")
-        val groupId: Long? = null,
+        @ManyToOne
+        @JoinColumn(name = "GROUP_ID")
+        var group: GroupEntity? = null,
 
         @Column(name = "LONG_URL")
         val longUrl: String? = null,

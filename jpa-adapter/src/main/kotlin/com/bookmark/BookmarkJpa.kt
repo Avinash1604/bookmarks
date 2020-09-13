@@ -1,12 +1,12 @@
 package com.bookmark
 
+import com.bookmark.entity.GroupEntity
+import com.bookmark.entity.GroupUserEntity
 import com.bookmark.entity.UrlEntity
 import com.bookmark.entity.UserEntity
-import com.bookmark.model.Url
-import com.bookmark.model.UrlRequest
-import com.bookmark.model.User
-import com.bookmark.model.UserRequest
+import com.bookmark.model.*
 import com.bookmark.port.BookmarkDatabaseService
+import com.bookmark.repository.GroupRepository
 import com.bookmark.repository.UrlRepository
 import com.bookmark.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -16,7 +16,9 @@ import javax.persistence.EntityNotFoundException
 
 
 @Service
-class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepository: UserRepository) : BookmarkDatabaseService {
+class BookmarkJpa(private val urlRepository: UrlRepository,
+                  private val userRepository: UserRepository,
+                  private val groupRepository: GroupRepository) : BookmarkDatabaseService {
     override fun createShortUrl(urlRequest: UrlRequest): Url {
         val urlEntity = UrlEntity(
                 longUrl = urlRequest.longUrl,
@@ -69,6 +71,56 @@ class BookmarkJpa(private val urlRepository: UrlRepository, private val userRepo
         }
     }
 
+
+    override fun createGroup(group: Group): Group {
+        val groupEntity = GroupEntity(
+                groupName = group.groupName,
+                groupUrl = group.groupUrl,
+                groupContext = group.groupContext.toString(),
+                groupContextName = group.groupContextName,
+                createdOn = LocalDateTime.now()
+        )
+
+        val response = groupRepository.save(groupEntity)
+        var groupUser = groupUsersToEntityList(group.users!!, response).toMutableList()
+        if (response.users != null && response.users.isNotEmpty()) {
+            groupUser.addAll(response.users)
+        }
+        response.users = groupUser;
+        return groupRepository.save(response).toDto()
+    }
+
+    private fun groupUsersToEntityList(users: List<GroupUser>, groupEntity: GroupEntity): List<GroupUserEntity> {
+        return users.map {
+            GroupUserEntity(
+                    userId = it.userId,
+                    userName = it.userName,
+                    group = groupEntity,
+                    email = it.email,
+                    roleName = it.roleName,
+                    createdOn = LocalDateTime.now()
+            )
+        }
+    }
+
+    override fun getAllGroup(): List<Group> {
+        return groupRepository.findAll().map {
+            it.toDto()
+        }
+    }
+
+    override fun updateGroup(group: Group) {
+        groupRepository.findById(group.groupId).ifPresent {
+            it.groupName = group.groupName?: it.groupName
+            it.groupContext = group.groupContext?.toString() ?: it.groupContext
+            it.groupContextName = group.groupContextName ?: it.groupContextName
+            groupRepository.save(it)
+        }
+    }
+
+    override fun deleteGroup(id: Long) {
+        groupRepository.deleteById(id)
+    }
     override fun deleteBookmarkUrl(id: Long) {
         urlRepository.deleteById(id)
     }
