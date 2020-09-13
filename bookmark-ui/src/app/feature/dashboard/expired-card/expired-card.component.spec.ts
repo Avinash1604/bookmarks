@@ -8,6 +8,7 @@ import { Operation } from 'src/app/shared/bookmark-card-layout/bookmark-card-lay
 import { MaterialModule } from 'src/app/shared/material.module';
 import { UrlService } from 'src/app/shared/service/url.service';
 import { ExpiredCardComponent } from './expired-card.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 export class MatDialogMock {
@@ -58,6 +59,7 @@ describe('ExpiredCardComponent', () => {
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
       ],
+      schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
