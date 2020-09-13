@@ -18,7 +18,7 @@ import {
   templateUrl: './expired-card.component.html',
   styleUrls: ['./expired-card.component.scss'],
 })
-export class ExpiredCardComponent implements OnInit {
+export class ExpiredCardComponent implements OnInit, OnDestroy {
   loading = false;
   color: ThemePalette = 'primary';
   constructor(
@@ -129,8 +129,8 @@ export class ExpiredCardComponent implements OnInit {
   }
 
   isDateExpired(date: string) {
-    let now = new Date();
-    let linkExpiryDate = new Date(date);
+    const now = new Date();
+    const linkExpiryDate = new Date(date);
     now.setHours(0, 0, 0, 0);
     linkExpiryDate.setHours(0, 0, 0, 0);
     return linkExpiryDate < now;
