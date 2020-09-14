@@ -11,7 +11,7 @@ interface BookmarkService {
     fun updateBookmarkUrl(baseUrl: UrlRequest)
     fun deleteBookmarkUrl(id: Long)
     fun createGroup(group: Group): Group
-    fun getAllGroup(baseUrl: String): List<Group>
+    fun getAllGroup(baseUrl: String, groupId: Long?): List<Group>
     fun updateGroup(group: Group)
     fun deleteGroup(id: Long)
     fun addUsersToGroup(group: Group)

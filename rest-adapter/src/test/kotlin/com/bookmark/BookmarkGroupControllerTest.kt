@@ -45,7 +45,7 @@ class BookmarkGroupControllerTest {
     fun getAllGroups() {
         //when
         val url = BASE_URL + port + API_END_POINTS
-        Mockito.`when`(bookmarkService!!.getAllGroup("http://localhost:$port")).thenReturn(listOf(getUserGroupMock()))
+        Mockito.`when`(bookmarkService!!.getAllGroup("http://localhost:$port", null)).thenReturn(listOf(getUserGroupMock()))
         val response = restTemplate.getForEntity(url, GroupDto::class.java)
         //then
         Assertions.assertThat(response).isNotNull

@@ -174,7 +174,14 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         }
     }
 
-    override fun getAllGroup(): List<Group> {
+    override fun getAllGroup(groupId: Long?): List<Group> {
+        if(groupId != null){
+            var group: Group? = null
+              groupRepository.findById(groupId).ifPresent {
+                  group = it.toDto()
+            }
+            return if(group != null) listOf(group!!) else emptyList()
+        }
         return groupRepository.findAll().map {
             it.toDto()
         }

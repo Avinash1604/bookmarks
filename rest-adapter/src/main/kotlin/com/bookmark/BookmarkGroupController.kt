@@ -41,9 +41,9 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
-    fun getAllGroup(): GroupDto {
+    fun getAllGroup(@RequestParam(required = false) groupId: Long?): GroupDto {
         val baseUrl = getHostName()
-        return GroupDto(details = bookmarkService.getAllGroup(baseUrl))
+        return GroupDto(details = bookmarkService.getAllGroup(baseUrl, groupId))
     }
 
 

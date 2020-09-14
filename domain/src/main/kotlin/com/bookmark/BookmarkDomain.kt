@@ -43,8 +43,8 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
         return bookmarkDatabaseService.createGroup(group)
     }
 
-    override fun getAllGroup(baseUrl: String): List<Group> {
-        return bookmarkDatabaseService.getAllGroup()
+    override fun getAllGroup(baseUrl: String, groupId: Long?): List<Group> {
+        return bookmarkDatabaseService.getAllGroup(groupId)
     }
 
     override fun updateGroup(group: Group) {
