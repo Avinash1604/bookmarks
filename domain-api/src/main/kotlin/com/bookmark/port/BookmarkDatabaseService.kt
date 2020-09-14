@@ -14,4 +14,10 @@ interface BookmarkDatabaseService {
     fun getAllGroup(): List<Group>
     fun updateGroup(group: Group)
     fun deleteGroup(id: Long)
+    fun addUsersToGroup(group: Group)
+    fun updateUsersRoleToGroup(group: Group)
+    fun deleteUserForGroup(groupId: Long, userId: Long)
+    fun addUrlsToGroup(group: Group)
+    fun updateUrlToGroup(group: Group)
+    fun deleteUrlForGroup(groupId: Long, urlId: Long)
 }

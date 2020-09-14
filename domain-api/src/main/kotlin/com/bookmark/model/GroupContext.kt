@@ -1,7 +1,7 @@
 package com.bookmark.model
 
 enum class GroupContext(s: String) {
-    groupContext("NONE"),
+    NONE("NONE"),
     USER("USER"),
     TRIBE("TRIBE"),
     APPLICATION("APPLICATION")

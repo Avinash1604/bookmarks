@@ -24,7 +24,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
     @Operation(summary = "Create a group", description = "Create a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "201", description = "Successfully created a group", content = [
-            (Content(mediaType = "application/json", schema = Schema(implementation = Url::class)))]),
+            (Content(mediaType = "application/json", schema = Schema(implementation = Group::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
@@ -69,8 +69,86 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun deleteShortUrl(@PathVariable id: Long) {
+    fun deleteGroup(@PathVariable id: Long) {
         bookmarkService.deleteGroup(id)
+    }
+
+    @PostMapping(value = ["/users"], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Add users to a group", description = "Add users` to a group")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "201", description = "Successfully user added to a group", content = [
+            (Content(mediaType = "application/json", schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.OK)
+    fun addUsersToGroup(@RequestBody group: Group) {
+        bookmarkService.addUsersToGroup(group)
+    }
+
+    @PutMapping(value = ["/users/roles"], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Update users role", description = "Update users role")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully updated user role", content = [
+            (Content(mediaType = "application/json", schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun updateUsersRoleToGroup(@RequestBody group: Group) {
+        bookmarkService.updateUsersRoleToGroup(group)
+    }
+
+    @DeleteMapping(value = ["/{groupId}/users/{userId}"])
+    @Operation(summary = "delete a user for a group", description = "delete a user for a group")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully deleted a user for a group", content = [
+            (Content(schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun deleteUserForGroup(@PathVariable groupId: Long, @PathVariable userId: Long) {
+        bookmarkService.deleteUserForGroup(groupId, userId)
+    }
+
+    @PostMapping(value = ["/urls"], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Add urls to a group", description = "Add urls to a group")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "201", description = "Successfully urls added to a group", content = [
+            (Content(mediaType = "application/json", schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.OK)
+    fun addUrlsToGroup(@RequestBody group: Group) {
+        bookmarkService.addUrlsToGroup(group)
+    }
+
+    @PutMapping(value = ["/urls"], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Update urls to a group", description = "Update urls to a group")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully updated a url", content = [
+            (Content(mediaType = "application/json", schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun updateUrlToGroup(@RequestBody group: Group) {
+        bookmarkService.updateUrlToGroup(group)
+    }
+
+    @DeleteMapping(value = ["/{groupId}/urls/{urlId}"])
+    @Operation(summary = "delete a url for a group", description = "delete a url for a group")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "204", description = "Successfully deleted a url for a group", content = [
+            (Content(schema = Schema(implementation = Void::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun deleteUrlForGroup(@PathVariable groupId: Long, @PathVariable urlId: Long) {
+        bookmarkService.deleteUrlForGroup(groupId, urlId)
     }
 
     private fun getHostName(): String {
