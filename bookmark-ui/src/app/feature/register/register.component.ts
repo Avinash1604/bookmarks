@@ -21,6 +21,7 @@ export class RegisterComponent  {
   register() {
     this.loading = true;
     this.userService.creatUser(this.user).subscribe(data => {
+      localStorage.setItem('user', JSON.stringify(data));
       this.loading = false;
       this.dialogRef.close();
       this.router.navigate(['/dashboard']);

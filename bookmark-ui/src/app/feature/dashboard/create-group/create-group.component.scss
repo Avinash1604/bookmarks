@@ -1,0 +1,17 @@
+:host ::ng-deep {
+    .create-group {
+        margin: 10px;
+        padding-top: 5px;
+        .btn-create-group {
+            width: 180px;
+            height: 50px;
+        }
+    }
+
+    .close_icon{
+        float: right;
+    }
+    mat-form-field{
+        width: 300px;
+    }
+}

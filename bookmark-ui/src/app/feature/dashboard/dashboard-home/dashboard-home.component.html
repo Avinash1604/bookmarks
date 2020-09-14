@@ -76,7 +76,7 @@
         </mat-expansion-panel-header>
         <mat-selection-list #link [multiple]="false">
           <mat-list-option>
-            <div class="sub-menu">
+            <div class="sub-menu" (click)="createGroup()">
               ADD NEW
               <mat-icon class="material-icons color_green"
                 >keyboard_arrow_right
@@ -84,12 +84,14 @@
             </div>
           </mat-list-option>
           <mat-list-option>
+            <a [routerLink]="['/dashboard/group']">
             <div class="sub-menu">
               ALL GROUP
               <mat-icon class="material-icons color_green"
                 >keyboard_arrow_right
               </mat-icon>
             </div>
+            </a>
           </mat-list-option>
         </mat-selection-list>
       </mat-expansion-panel>
