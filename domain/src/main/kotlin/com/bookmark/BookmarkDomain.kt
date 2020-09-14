@@ -54,4 +54,28 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     override fun deleteGroup(id: Long) {
         return bookmarkDatabaseService.deleteGroup(id);
     }
+
+    override fun addUsersToGroup(group: Group) {
+        bookmarkDatabaseService.addUsersToGroup(group);
+    }
+
+    override fun updateUsersRoleToGroup(group: Group) {
+        bookmarkDatabaseService.updateUsersRoleToGroup(group)
+    }
+
+    override fun deleteUserForGroup(groupId: Long, userId: Long) {
+        bookmarkDatabaseService.deleteUserForGroup(groupId, userId)
+    }
+
+    override fun addUrlsToGroup(group: Group) {
+        bookmarkDatabaseService.addUrlsToGroup(group)
+    }
+
+    override fun updateUrlToGroup(group: Group) {
+        bookmarkDatabaseService.updateUrlToGroup(group);
+    }
+
+    override fun deleteUrlForGroup(groupId: Long, urlId: Long) {
+        bookmarkDatabaseService.deleteUrlForGroup(groupId, urlId)
+    }
 }

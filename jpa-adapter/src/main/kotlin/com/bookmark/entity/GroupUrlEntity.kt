@@ -18,10 +18,13 @@ data class GroupUrlEntity(
         var group: GroupEntity? = null,
 
         @Column(name = "LONG_URL")
-        val longUrl: String? = null,
+        var longUrl: String? = null,
 
-        @Column(name = "EXPIRY_DATE")
-        val expiryDates: LocalDate? = null,
+        @Column(name = "DESCRIPTION")
+        var description: String? = null,
+
+        @Column(name = "TITLE")
+        var title: String? = null,
 
         @Column(name = "CREATED_ON")
         val createdOn: LocalDateTime? = null

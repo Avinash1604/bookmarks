@@ -1,9 +1,6 @@
 package com.bookmark
 
-import com.bookmark.entity.GroupEntity
-import com.bookmark.entity.GroupUserEntity
-import com.bookmark.entity.UrlEntity
-import com.bookmark.entity.UserEntity
+import com.bookmark.entity.*
 import com.bookmark.model.*
 import com.bookmark.port.BookmarkDatabaseService
 import com.bookmark.repository.GroupRepository
@@ -90,6 +87,68 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         return groupRepository.save(response).toDto()
     }
 
+    override fun addUsersToGroup(group: Group) {
+        groupRepository.findById(group.groupId).ifPresent {
+            it.users.addAll(groupUsersToEntityList(group.users!!, it));
+            groupRepository.save(it)
+        }
+    }
+
+    override fun updateUsersRoleToGroup(group: Group) {
+        groupRepository.findById(group.groupId).ifPresent { it ->
+            if (it.users != null && it.users.isNotEmpty()) {
+                it.users.filter {
+                    it.userId == group.users?.get(0)?.userId
+                }.map {
+                    it.roleName = group.users?.get(0)?.roleName
+                }
+            }
+            groupRepository.save(it)
+        }
+    }
+
+    override fun deleteUserForGroup(groupId: Long, userId: Long) {
+        groupRepository.findById(groupId).ifPresent {
+            val list = it.users.filter { groupUser ->
+                groupUser.userId != userId
+            }
+            it.users.clear()
+            it.users.addAll(list)
+            groupRepository.save(it)
+        }
+    }
+
+    override fun addUrlsToGroup(group: Group) {
+        groupRepository.findById(group.groupId).ifPresent {
+            it.urls.addAll(groupUrlsToEntityList(group.urls!!, it));
+            groupRepository.save(it)
+        }
+    }
+
+    override fun updateUrlToGroup(group: Group) {
+        groupRepository.findById(group.groupId).ifPresent { it ->
+            it.urls.filter {
+                it.id == group.urls?.get(0)?.id
+            }.map {
+                it.description = group.urls?.get(0)?.description ?: it.description
+                it.title = group.urls?.get(0)?.title ?: it.title
+                it.longUrl = group.urls?.get(0)?.longUrl ?: it.longUrl
+            }
+            groupRepository.save(it)
+        }
+    }
+
+    override fun deleteUrlForGroup(groupId: Long, urlId: Long) {
+        groupRepository.findById(groupId).ifPresent {
+            val list = it.urls.filter { groupUser ->
+                groupUser.id != urlId
+            }
+            it.urls.clear()
+            it.urls.addAll(list)
+            groupRepository.save(it)
+        }
+    }
+
     private fun groupUsersToEntityList(users: List<GroupUser>, groupEntity: GroupEntity): List<GroupUserEntity> {
         return users.map {
             GroupUserEntity(
@@ -103,6 +162,18 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         }
     }
 
+    private fun groupUrlsToEntityList(urls: List<GroupUrl>, groupEntity: GroupEntity): List<GroupUrlEntity> {
+        return urls.map {
+            GroupUrlEntity(
+                    longUrl = it.longUrl,
+                    title = it.title,
+                    description = it.description,
+                    group = groupEntity,
+                    createdOn = LocalDateTime.now()
+            )
+        }
+    }
+
     override fun getAllGroup(): List<Group> {
         return groupRepository.findAll().map {
             it.toDto()
@@ -111,7 +182,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
 
     override fun updateGroup(group: Group) {
         groupRepository.findById(group.groupId).ifPresent {
-            it.groupName = group.groupName?: it.groupName
+            it.groupName = group.groupName ?: it.groupName
             it.groupContext = group.groupContext?.toString() ?: it.groupContext
             it.groupContextName = group.groupContextName ?: it.groupContextName
             groupRepository.save(it)
@@ -121,6 +192,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
     override fun deleteGroup(id: Long) {
         groupRepository.deleteById(id)
     }
+
     override fun deleteBookmarkUrl(id: Long) {
         urlRepository.deleteById(id)
     }

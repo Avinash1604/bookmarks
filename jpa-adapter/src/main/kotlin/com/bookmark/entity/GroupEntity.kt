@@ -2,6 +2,7 @@ package com.bookmark.entity
 
 import com.bookmark.model.Group
 import com.bookmark.model.GroupContext
+import com.bookmark.model.GroupUrl
 import com.bookmark.model.GroupUser
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
@@ -35,18 +36,20 @@ data class GroupEntity(
         @OneToMany(
                 cascade = [CascadeType.ALL],
                 fetch = FetchType.EAGER,
-                mappedBy = "group"
+                mappedBy = "group",
+                orphanRemoval = true
         )
         @Fetch(value = FetchMode.SUBSELECT)
-        var users: List<GroupUserEntity> = emptyList(),
+        var users: MutableList<GroupUserEntity> = mutableListOf(),
 
         @OneToMany(
                 cascade = [CascadeType.ALL],
                 fetch = FetchType.EAGER,
-                mappedBy = "group"
+                mappedBy = "group",
+                orphanRemoval = true
         )
         @Fetch(value = FetchMode.SUBSELECT)
-        var urls: List<GroupUrlEntity> = emptyList()
+        var urls: MutableList<GroupUrlEntity> = mutableListOf()
 
 ) {
     fun toDto(): Group {
@@ -55,11 +58,22 @@ data class GroupEntity(
                 groupName = groupName,
                 users = users.map {
                     GroupUser(
+                            id = it.id,
                             groupId = it.group?.groupId,
                             roleName = it.roleName,
                             email = it.email,
                             userName = it.userName,
                             userId = it.userId
+                    )
+                },
+                urls = urls.map {
+                    GroupUrl(
+                            id = it.id,
+                            longUrl = it.longUrl,
+                            title = it.title,
+                            description = it.description,
+                            groupId = it.group?.groupId,
+                            createdOn = it.createdOn
                     )
                 },
                 groupContextName = groupContextName,

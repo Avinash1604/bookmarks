@@ -14,7 +14,7 @@ data class GroupUserEntity(
         @SequenceGenerator(name = "T_GROUP_USER_SEQUENCE", sequenceName = "T_GROUP_USER_SEQUENCE", allocationSize = 1)
         val id: Long? = null,
 
-        @ManyToOne
+        @ManyToOne()
         @JoinColumn(name = "GROUP_ID")
         var group: GroupEntity? = null,
 
@@ -28,7 +28,7 @@ data class GroupUserEntity(
         val email: String? = null,
 
         @Column(name = "ROLE_NAME")
-        val roleName: String? = null,
+        var roleName: String? = null,
 
         @Column(name = "CREATED_ON")
         val createdOn: LocalDateTime? = null
