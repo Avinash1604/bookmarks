@@ -1,0 +1,33 @@
+<div class="container">
+  <div layout="row">
+    <div class="cardContainer" *ngFor="let group of groupList">
+      <div class="card">
+        <div class="header">
+          <div class="fav-image">
+            <img class="fav-icon" src="https://img.icons8.com/color/48/000000/group-foreground-selected.png"/>
+          </div>
+          <div class="title">{{ group.groupName}}</div>
+          <div class="operations">
+            <mat-icon class="material-icons" (click)="copy()"
+              >content_copy
+            </mat-icon>
+            <mat-icon class="material-icons" (click)="update(group)">edit </mat-icon>
+            <mat-icon class="material-icons" (click)="delete(group.groupId)"
+              >delete
+            </mat-icon>
+          </div>
+        </div>
+        <div class="card-container">
+          <div>{{ group.groupName}}</div>
+          <mat-icon class="material-icons bottom-right" (click)="openCard()"
+            >arrow_forward
+          </mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-indicator" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>

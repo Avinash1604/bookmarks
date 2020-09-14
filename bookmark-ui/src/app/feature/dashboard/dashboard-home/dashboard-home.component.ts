@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLinkComponent } from '../create-link/create-link.component';
 import { UrlService } from 'src/app/shared/service/url.service';
+import { CreateGroupComponent } from '../create-group/create-group.component';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -33,6 +34,17 @@ export class DashboardHomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.urlService.isBookMarkLinkAdded(true);
+      }
+    });
+  }
+
+  createGroup(): void {
+    const dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+
       }
     });
   }

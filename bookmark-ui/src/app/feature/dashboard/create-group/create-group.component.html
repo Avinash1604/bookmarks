@@ -1,0 +1,62 @@
+<div class="content">
+  <div class="col-xl-12 mb-5 mb-xl-0 car-layout">
+    <mat-icon
+      class="material-icons color_green close_icon"
+      (click)="closeModal()"
+      >close
+    </mat-icon>
+    <form [formGroup]="shortUrlForm">
+      <div class="row">
+        <mat-form-field class="form-fields-full-width">
+          <input
+            matInput
+            formControlName="groupName"
+            required
+            type="text"
+            placeholder="Group Name"
+            name="groupName"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+            <mat-label>Group Context</mat-label>
+          <mat-select formControlName="groupContext" name="groupContext">
+            <mat-option
+              *ngFor="let context of groupContext"
+              [value]="context"
+              >{{ context }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-fields-full-width">
+          <input
+            matInput
+            formControlName="groupContextName"
+            required
+            type="text"
+            placeholder="Group Context Name"
+            name="groupContextName"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row create-group">
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-create-group"
+          [class.spinner]="loading"
+          [disabled]="!shortUrlForm.valid"
+          [disabled]="loading"
+          (click)="createGroup()"
+        >
+          {{ isUpdated ? "Update" : "Create Group" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

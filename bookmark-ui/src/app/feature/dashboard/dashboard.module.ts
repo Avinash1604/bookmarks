@@ -7,33 +7,50 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { CreateLinkComponent } from './create-link/create-link.component';
 import { LinkCardComponent } from './link-card/link-card.component';
 import { ExpiredCardComponent } from './expired-card/expired-card.component';
+import { GroupComponent } from './group/group.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 const routes: Routes = [
   {
-    path: '' , component: DashboardHomeComponent,
+    path: '',
+    component: DashboardHomeComponent,
     children: [
       { path: '', redirectTo: 'links', pathMatch: 'full' },
       {
-        path: 'links', component: LinkCardComponent
+        path: 'links',
+        component: LinkCardComponent,
       },
       {
-        path: 'all-links', component: LinkCardComponent
+        path: 'all-links',
+        component: LinkCardComponent,
       },
       {
-        path: 'expired', component: ExpiredCardComponent
-      }
-    ]
+        path: 'expired',
+        component: ExpiredCardComponent,
+      },
+      {
+        path: 'group',
+        component: GroupComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
-  declarations: [DashboardHomeComponent, CreateLinkComponent, LinkCardComponent, ExpiredCardComponent],
+  declarations: [
+    DashboardHomeComponent,
+    CreateLinkComponent,
+    LinkCardComponent,
+    ExpiredCardComponent,
+    GroupComponent,
+    CreateGroupComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
