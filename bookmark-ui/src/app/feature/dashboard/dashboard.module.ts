@@ -9,6 +9,8 @@ import { LinkCardComponent } from './link-card/link-card.component';
 import { ExpiredCardComponent } from './expired-card/expired-card.component';
 import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { GroupLinkCardComponent } from './group-link-card/group-link-card.component';
+import { GroupListComponent } from './link-card/group-list/group-list.component';
 
 const routes: Routes = [
   {
@@ -29,8 +31,12 @@ const routes: Routes = [
         component: ExpiredCardComponent,
       },
       {
-        path: 'group',
+        path: 'groups',
         component: GroupComponent,
+      },
+      {
+        path: 'group/links',
+        component: GroupLinkCardComponent,
       },
     ],
   },
@@ -44,6 +50,8 @@ const routes: Routes = [
     ExpiredCardComponent,
     GroupComponent,
     CreateGroupComponent,
+    GroupLinkCardComponent,
+    GroupListComponent
   ],
   imports: [
     CommonModule,

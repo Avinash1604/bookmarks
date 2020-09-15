@@ -17,10 +17,22 @@ export class GroupService {
   public getGroups(): Observable<any> {
     return this.http.get<any>(this.baseUrl);
   }
+  public getGroupsById(groupId: number): Observable<any> {
+    return this.http.get<any>(this.baseUrl+'?groupId='+groupId);
+  }
   public updateGroup(data: Group): Observable<any> {
     return this.http.put(this.baseUrl, data);
   }
   public deleteGroup(id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + '/' + id);
+  }
+  public deleteUrl(groupId: number, id: number): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + '/' + groupId+'/urls/'+id);
+  }
+  public updateUrl(data: Group): Observable<any> {
+    return this.http.put(this.baseUrl+'/urls', data);
+  }
+  public addUrls(data: Group): Observable<any> {
+    return this.http.put(this.baseUrl+'/urls', data);
   }
 }

@@ -25,6 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { BookmarkCardLayoutComponent } from './bookmark-card-layout/bookmark-card-layout.component';
 import { CommonModule } from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {MatSelectModule} from '@angular/material/select';
         MatExpansionModule,
         MatProgressSpinnerModule,
         CommonModule,
-        MatSelectModule
+        MatSelectModule,
+        MatMenuModule
     ],
     exports: [
         CommonModule,
@@ -78,7 +80,8 @@ import {MatSelectModule} from '@angular/material/select';
         ImageFavIconDirective,
         MatProgressSpinnerModule,
         BookmarkCardLayoutComponent,
-        MatSelectModule
+        MatSelectModule,
+        MatMenuModule
     ],
     declarations: [ImageFavIconDirective, BookmarkCardLayoutComponent]
 })

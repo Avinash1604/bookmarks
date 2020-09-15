@@ -1,21 +1,22 @@
 :host ::ng-deep {
-    .move_to_folder {
-        height: 50px;
-        width: 220px;
-        border: 2px solid #00bf6f !important;
+    .toobar{
+      
     }
+    .spacer {
+        flex: 1 1 auto;
+      }
     .container {
         margin: 5px;
         .left-border-green {
             border-left: 3px solid #00bf6f;
         }
-    
-        .color_green {
-            color: #121312;
+
+        .color_green{
+            color: #00bf6f;
         }
 
         .left-border-red {
-            border-left: 3px solid #ff0000;
+            border-left: 3px solid #FF0000;
         }
         .cardContainer {
             float: left;
@@ -29,7 +30,7 @@
                 overflow-y: scroll;
                 align-items: center;
                 justify-content: center;
-                .bottom-right {
+                .bottom-right{
                     position: absolute;
                     bottom: 2px;
                     right: 5px;
@@ -38,7 +39,7 @@
             }
         }
     }
-    .loading-indicator {
+    .loading-indicator{
         position: absolute;
         top: 50%;
         left: 50%;

@@ -12,33 +12,47 @@ import {
   Operation,
   CardModel,
 } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
-import { GroupListComponent } from './group-list/group-list.component';
-import { GroupService } from 'src/app/shared/service/group.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from 'src/app/shared/model/group';
+import { GroupService } from 'src/app/shared/service/group.service';
 import { GroupUrl } from 'src/app/shared/model/group-url';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-link-card',
-  templateUrl: './link-card.component.html',
-  styleUrls: ['./link-card.component.scss'],
+  selector: 'app-group-link-card',
+  templateUrl: './group-link-card.component.html',
+  styleUrls: ['./group-link-card.component.scss'],
 })
-export class LinkCardComponent implements OnInit, OnDestroy {
+export class GroupLinkCardComponent implements OnInit, OnDestroy {
   loading = false;
   color: ThemePalette = 'primary';
-  bookmarkUrls: Url[];
-  selectedUrls: Url[] = [];
-
-  private destroy = new Subject<boolean>();
+  groupDetails: Group;
+  groupId: number;
   constructor(
     private urlService: UrlService,
     public clipboard: Clipboard,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public groupService: GroupService
-  ) {}
+    public groupService: GroupService,
+    public route: ActivatedRoute,
+    public router: Router,
+    private sanitizer: DomSanitizer
+  ) {
+    route.queryParams.subscribe((params) => (this.groupId = params.gId));
+  }
+  bookmarkUrls: Url[];
+  private destroy = new Subject<boolean>();
   ngOnInit(): void {
-    this.getAllUrls();
+    this.getAllGroups();
     this.newlinkAdded();
+  }
+
+  getAllGroups() {
+    this.loading = true;
+    this.groupService.getGroupsById(this.groupId).subscribe((data) => {
+      this.loading = false;
+      this.groupDetails = data.details?.[0];
+    });
   }
 
   getAllUrls() {
@@ -84,10 +98,26 @@ export class LinkCardComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateLink(url: Url): void {
+  addNewLink(): void {
     const dialogRef = this.dialog.open(CreateLinkComponent, {
       width: '90%',
-      data: { urlDetails: url },
+      data: { groupId: this.groupDetails.groupId },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.addToUrlList(result);
+      }
+    });
+  }
+
+  addToUrlList(url: GroupUrl) {
+    this.groupDetails.urls.push(url);
+  }
+
+  updateLink(url: GroupUrl): void {
+    const dialogRef = this.dialog.open(CreateLinkComponent, {
+      width: '90%',
+      data: { groupUrl: url, groupId: this.groupDetails.groupId },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -96,23 +126,22 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateUrlList(url: Url) {
-    this.bookmarkUrls
+  updateUrlList(url: GroupUrl) {
+    this.groupDetails.urls
       .filter((urlObject) => urlObject.id === url.id)
       .map((urlObj) => {
         urlObj.longUrl = url.longUrl;
         urlObj.description = url.description;
-        urlObj.expiryDate = url.expiryDate;
         urlObj.title = url.title;
       });
   }
 
-  delete(id: number) {
+  delete(groupId, id: number) {
     this.loading = true;
-    this.urlService.deleteShortUrl(id).subscribe(
+    this.groupService.deleteUrl(groupId, id).subscribe(
       (data) => {
         this.loading = false;
-        this.bookmarkUrls = this.bookmarkUrls.filter(
+        this.groupDetails.urls = this.groupDetails.urls.filter(
           (urlObject) => urlObject.id !== id
         );
       },
@@ -127,20 +156,6 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
-  isDateExpired(date: string) {
-    const now = new Date();
-    const linkExpiryDate = new Date(date);
-    now.setHours(0, 0, 0, 0);
-    linkExpiryDate.setHours(0, 0, 0, 0);
-    return linkExpiryDate >= now;
-  }
-
-  borderStyleExpired(dateStr: string) {
-    return this.isDateExpired(dateStr)
-      ? 'left-border-green'
-      : 'left-border-red';
-  }
-
   cardOperation(event) {
     const operation = event.operation;
     const data = event.model;
@@ -152,31 +167,17 @@ export class LinkCardComponent implements OnInit, OnDestroy {
         this.openUrlOnCardClick(data.longUrl);
         break;
       case Operation.DELETE:
-        this.delete(data.id);
+        this.delete(this.groupDetails.groupId, data.id);
         break;
       case Operation.EDIT:
         this.updateLink(
-          this.bookmarkUrls.filter((obj) => obj.id === data.id)[0]
+          this.groupDetails.urls.filter((obj) => obj.id === data.id)[0]
         );
         break;
-      case Operation.CHECKBOX:
-        this.addOrRemoveLinks(data);
     }
   }
 
-  addOrRemoveLinks(cardModel: CardModel) {
-    if (cardModel.selected) {
-      this.selectedUrls = this.selectedUrls.concat(
-        this.bookmarkUrls.filter((object) => object.id === cardModel.id)
-      );
-    } else {
-      this.selectedUrls = this.selectedUrls.filter(
-        (object) => object.id !== cardModel.id
-      );
-    }
-  }
-
-  convertUrlToCardModel(url: Url) {
+  convertUrlToCardModel(url: GroupUrl) {
     const cardModel = {} as CardModel;
     cardModel.description = url.description;
     cardModel.title = url.title;
@@ -184,37 +185,52 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     cardModel.shortUrl = url.shortUrl;
     cardModel.id = url.id;
     cardModel.favIcon = this.getFavIcon(url.longUrl);
-    cardModel.leftBorderStyle = this.borderStyleExpired(url.expiryDate);
-    cardModel.selectionRequired = true;
+    cardModel.leftBorderStyle = 'NONE';
     return cardModel;
   }
 
-  movToGroup() {
-    const dialogRef = this.dialog.open(GroupListComponent, {
-      width: '600px',
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+  addUrlsFromBookmarkSection() {
+    this.router.navigate(['/dashboard/all-links']);
+  }
+
+  generateDownloadJsonUri() {
+    var sJson = JSON.stringify(this.groupDetails.urls);
+    var element = document.createElement('a');
+    element.setAttribute(
+      'href',
+      'data:text/json;charset=UTF-8,' + encodeURIComponent(sJson)
+    );
+    element.setAttribute('download', this.groupDetails.groupName + '.json');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click(); // simulate click
+    document.body.removeChild(element);
+  }
+
+  onFileChanged(event) {
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(file, 'UTF-8');
+    fileReader.onload = (result) => {
+      const urlsDetails: GroupUrl[] = JSON.parse(
+        result.target.result as string
+      );
+      if (urlsDetails) {
         this.loading = true;
-        const group = {} as Group;
-        group.groupId = result.groupId;
-        group.urls = this.selectedUrls.map((data) => {
-          let groupUrl = {} as GroupUrl;
-          groupUrl.longUrl = data.longUrl;
-          groupUrl.description = data.description;
-          groupUrl.title = data.title;
-          return groupUrl;
-        });
+        const group: Group = {} as Group;
+        group.groupId = this.groupDetails.groupId;
+        group.urls = urlsDetails;
         this.groupService.addUrls(group).subscribe(
           (data) => {
             this.loading = false;
-            alert('Urls added successfully to a Group');
+            this.getAllUrls
           },
-          (error) => {
+          (err) => {
             this.loading = false;
           }
         );
       }
-    });
+    };
+    fileReader.onerror = (error) => {};
   }
 }
