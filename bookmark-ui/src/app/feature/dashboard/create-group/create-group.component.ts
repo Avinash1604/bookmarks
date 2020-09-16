@@ -62,8 +62,8 @@ export class CreateGroupComponent implements OnInit {
     this.groupService.createGroup(group).subscribe(
       data => {
         this.loading = false;
-        this.dialogRef.close();
         alert('Group successfully created');
+        this.dialogRef.close(1);
       }, error => {
         this.loading = false;
       }

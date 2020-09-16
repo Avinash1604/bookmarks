@@ -26,6 +26,7 @@ import { BookmarkCardLayoutComponent } from './bookmark-card-layout/bookmark-car
 import { CommonModule } from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {MatMenuModule} from '@angular/material/menu';
         CommonModule,
         MatSelectModule,
         MatMenuModule,
+        MatChipsModule
     ],
     exports: [
         CommonModule,
@@ -81,7 +83,8 @@ import {MatMenuModule} from '@angular/material/menu';
         MatProgressSpinnerModule,
         BookmarkCardLayoutComponent,
         MatSelectModule,
-        MatMenuModule
+        MatMenuModule,
+        MatChipsModule
     ],
     declarations: [ImageFavIconDirective, BookmarkCardLayoutComponent]
 })

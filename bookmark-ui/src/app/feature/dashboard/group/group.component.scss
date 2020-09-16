@@ -2,6 +2,13 @@
     .container {
         margin: 5px;
    
+        .left-border-green {
+            border-left: 3px solid #00bf6f;
+        }
+        .left-border-red {
+            border-left: 3px solid #ff0000;
+        }
+        
         .color_green {
             color: #00bf6f;
         }
@@ -14,16 +21,27 @@
                 height: 65%;
                 width: 100%;
                 position: relative;
-                display: flex;
                 overflow-y: scroll;
-                align-items: center;
-                justify-content: center;
+                align-items: left;
+                justify-content: left;
+                margin: 5px;
+                font-size: 14px;
                 .bottom-right {
                     position: absolute;
                     bottom: 2px;
                     right: 5px;
                     cursor: pointer;
                 }
+
+                .context{
+                    margin-bottom: 10px;
+                }
+
+            }
+            .matrics{
+                position: absolute;
+                bottom: 2px;
+                left: 2px;
             }
         }
     }

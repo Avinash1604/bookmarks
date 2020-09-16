@@ -29,8 +29,7 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public groupService: GroupService,
     public route: ActivatedRoute,
-    public router: Router,
-    public location: Location
+    public router: Router
   ) {
     route.queryParams.subscribe((params) => (this.groupId = params.gId));
   }
@@ -75,13 +74,9 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.addToUrlList(result);
+        this.getAllGroups();
       }
     });
-  }
-
-  addToUrlList(url: GroupUrl) {
-    this.groupDetails.urls.push(url);
   }
 
   updateLink(url: GroupUrl): void {
@@ -149,15 +144,13 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
 
   convertUrlToCardModel(url: GroupUrl) {
     const cardModel = {} as CardModel;
-    if (url !== undefined) {
-      cardModel.description = url.description;
-      cardModel.title = url.title;
-      cardModel.longUrl = url.longUrl;
-      cardModel.shortUrl = url.shortUrl;
-      cardModel.id = url.id;
-      cardModel.favIcon = this.getFavIcon(url.longUrl);
-      cardModel.leftBorderStyle = 'NONE';
-    }
+    cardModel.description = url.description;
+    cardModel.title = url.title;
+    cardModel.longUrl = url?.longUrl;
+    cardModel.shortUrl = url.shortUrl;
+    cardModel.id = url.id;
+    cardModel.favIcon = this.getFavIcon(url?.longUrl);
+    cardModel.leftBorderStyle = 'NONE';
     return cardModel;
   }
 
@@ -215,6 +208,6 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.location.back();
+    this.router.navigate(['/dashboard/groups']);
   }
 }

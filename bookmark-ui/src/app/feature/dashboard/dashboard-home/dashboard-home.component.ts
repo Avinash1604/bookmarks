@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateLinkComponent } from '../create-link/create-link.component';
 import { UrlService } from 'src/app/shared/service/url.service';
 import { CreateGroupComponent } from '../create-group/create-group.component';
+import { GroupService } from 'src/app/shared/service/group.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -17,7 +18,8 @@ export class DashboardHomeComponent implements OnInit {
   constructor(
     private route: Router,
     public dialog: MatDialog,
-    private urlService: UrlService
+    private urlService: UrlService,
+    private groupService: GroupService
   ) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -44,7 +46,7 @@ export class DashboardHomeComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-
+        this.groupService.isGroupCreated(true);
       }
     });
   }

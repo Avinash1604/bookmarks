@@ -122,31 +122,42 @@ export class CreateLinkComponent implements OnInit {
   }
 
   addUrlToGroup() {
+    this.loading = true;
     const group = {} as Group;
     group.groupId = this.groupId;
     const groupUrlTemp = {} as GroupUrl;
-    groupUrlTemp.description = this.shortUrlForm.get('longUrl').value;
+    groupUrlTemp.longUrl = this.shortUrlForm.get('longUrl').value;
     groupUrlTemp.title = this.shortUrlForm.get('title').value;
     groupUrlTemp.description = this.shortUrlForm.get('desc').value;
+
     group.urls = [groupUrlTemp];
     this.groupService.addUrls(group).subscribe(
-      (data) => {},
-      (error) => {}
+      (data) => {
+        this.loading = false;
+        this.dialogRef.close(1);
+      },
+      (error) => {
+        this.loading = false;
+      }
     );
   }
 
   updateGroup() {
+    this.loading = true;
     const group = {} as Group;
     group.groupId = this.groupId;
-    this.groupUrl.description = this.shortUrlForm.get('longUrl').value;
+    this.groupUrl.longUrl = this.shortUrlForm.get('longUrl').value;
     this.groupUrl.title = this.shortUrlForm.get('title').value;
     this.groupUrl.description = this.shortUrlForm.get('desc').value;
     group.urls = [this.groupUrl];
     this.groupService.updateUrl(group).subscribe(
       (data) => {
+        this.loading = false;
         this.dialogRef.close(this.groupUrl);
       },
-      (error) => {}
+      (error) => {
+        this.loading = false;
+      }
     );
   }
 }

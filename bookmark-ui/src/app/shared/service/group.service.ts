@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Group } from '../model/group';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Group } from '../model/group';
 })
 export class GroupService {
   baseUrl = 'https://bookmarks-tiny.herokuapp.com/api/v1/bookmarks/groups';
+  private groupCreated = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -45,5 +46,12 @@ export class GroupService {
   }
   public deleteUsers(groupId: number, id: number): Observable<any> {
     return this.http.delete<any>(this.baseUrl + '/' + groupId + '/users/' + id);
+  }
+
+  public isGroupCreated(added: boolean) {
+    this.groupCreated.next(added);
+  }
+  public get getGroupCreatedNotification(): Observable<boolean>{
+    return this.groupCreated.asObservable();
   }
 }
