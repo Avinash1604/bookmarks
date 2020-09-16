@@ -199,7 +199,7 @@ export class LinkCardComponent implements OnInit, OnDestroy {
         const group = {} as Group;
         group.groupId = result.groupId;
         group.urls = this.selectedUrls.map((data) => {
-          let groupUrl = {} as GroupUrl;
+          const groupUrl = {} as GroupUrl;
           groupUrl.longUrl = data.longUrl;
           groupUrl.description = data.description;
           groupUrl.title = data.title;

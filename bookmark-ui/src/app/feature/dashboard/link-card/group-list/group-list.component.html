@@ -9,7 +9,9 @@
     <th>Group Context Name</th>
   </tr>
   <tr *ngFor="let group of groupList">
-    <u (click)="groupClick(group)"><td>{{ group.groupName }}</td></u>
+    <u (click)="groupClick(group)"
+      ><td>{{ group.groupName }}</td></u
+    >
     <td>{{ group.groupContext }}</td>
     <td>{{ group.groupContextName }}</td>
   </tr>

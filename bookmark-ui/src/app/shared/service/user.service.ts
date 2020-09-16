@@ -7,8 +7,8 @@ import { User } from '../model/user';
   providedIn: 'root',
 })
 export class UserService {
-   baseUrl = 'https://bookmarks-tiny.herokuapp.com/api/v1/users';
-  // baseUrl = 'http://localhost:8080/api/v1/users';
+  // baseUrl = 'https://bookmarks-tiny.herokuapp.com/api/v1/users';
+  baseUrl = 'http://localhost:8080/api/v1/users';
   getUserByCredentials = '/by-credentials';
 
   constructor(private http: HttpClient) {}
@@ -26,5 +26,9 @@ export class UserService {
         '&password=' +
         data.password
     );
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.baseUrl);
   }
 }

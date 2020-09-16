@@ -31,9 +31,22 @@ Application
 ### How to use an application 
 
 ### Technology and versions 
-* Spring boot - 2.3.2 
-* Kotlin 
-* Swagger : open API 3 
-* OpenJdk 11.2 
-* Angular - 9 version 
+```
+* Backend
 
+	 * Language: kotlin (AdoptOpenJDK 11.2)
+	 * Framework: Spring, spring-boot, spring-jpa
+         * documentation: Swagger 3.0.2
+         * database : postgres 
+         * code quality: codacy, maven enforcer 
+         * code coverage: Jacoco, coveralls
+         * Test Framework: Junit 5 
+
+*Front end 
+
+         * Language: Angular (version 9)
+         * code quality: codacy, Lint  
+         * code coverage: coveralls
+         * Test Framework: jasmine
+  
+```

@@ -1,22 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UrlService } from 'src/app/shared/service/url.service';
-import { Url } from 'src/app/shared/model/url';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/internal/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateLinkComponent } from '../create-link/create-link.component';
+import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import {
-  Operation,
-  CardModel,
-} from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { CardModel, Operation } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
 import { Group } from 'src/app/shared/model/group';
-import { GroupService } from 'src/app/shared/service/group.service';
 import { GroupUrl } from 'src/app/shared/model/group-url';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Url } from 'src/app/shared/model/url';
+import { GroupService } from 'src/app/shared/service/group.service';
+import { CreateLinkComponent } from '../create-link/create-link.component';
 
 @Component({
   selector: 'app-group-link-card',
@@ -29,14 +24,13 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
   groupDetails: Group;
   groupId: number;
   constructor(
-    private urlService: UrlService,
     public clipboard: Clipboard,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     public groupService: GroupService,
     public route: ActivatedRoute,
     public router: Router,
-    private sanitizer: DomSanitizer
+    public location: Location
   ) {
     route.queryParams.subscribe((params) => (this.groupId = params.gId));
   }
@@ -44,7 +38,6 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
   private destroy = new Subject<boolean>();
   ngOnInit(): void {
     this.getAllGroups();
-    this.newlinkAdded();
   }
 
   getAllGroups() {
@@ -53,19 +46,6 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.groupDetails = data.details?.[0];
     });
-  }
-
-  getAllUrls() {
-    this.loading = true;
-    return this.urlService.getBookmarkedShortUrl().subscribe(
-      (data) => {
-        this.loading = false;
-        this.bookmarkUrls = data.details;
-      },
-      (error) => {
-        this.loading = false;
-      }
-    );
   }
 
   getFavIcon(url: string) {
@@ -86,16 +66,6 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
 
   openUrlOnCardClick(url: string) {
     window.open(url, '_blank');
-  }
-
-  newlinkAdded() {
-    this.urlService.getBookmarkAdded
-      .pipe(takeUntil(this.destroy))
-      .subscribe((response) => {
-        if (response) {
-          this.getAllUrls();
-        }
-      });
   }
 
   addNewLink(): void {
@@ -179,13 +149,15 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
 
   convertUrlToCardModel(url: GroupUrl) {
     const cardModel = {} as CardModel;
-    cardModel.description = url.description;
-    cardModel.title = url.title;
-    cardModel.longUrl = url.longUrl;
-    cardModel.shortUrl = url.shortUrl;
-    cardModel.id = url.id;
-    cardModel.favIcon = this.getFavIcon(url.longUrl);
-    cardModel.leftBorderStyle = 'NONE';
+    if (url !== undefined) {
+      cardModel.description = url.description;
+      cardModel.title = url.title;
+      cardModel.longUrl = url.longUrl;
+      cardModel.shortUrl = url.shortUrl;
+      cardModel.id = url.id;
+      cardModel.favIcon = this.getFavIcon(url.longUrl);
+      cardModel.leftBorderStyle = 'NONE';
+    }
     return cardModel;
   }
 
@@ -194,8 +166,8 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
   }
 
   generateDownloadJsonUri() {
-    var sJson = JSON.stringify(this.groupDetails.urls);
-    var element = document.createElement('a');
+    const sJson = JSON.stringify(this.groupDetails.urls);
+    const element = document.createElement('a');
     element.setAttribute(
       'href',
       'data:text/json;charset=UTF-8,' + encodeURIComponent(sJson)
@@ -223,7 +195,7 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
         this.groupService.addUrls(group).subscribe(
           (data) => {
             this.loading = false;
-            this.getAllUrls
+            this.getAllGroups();
           },
           (err) => {
             this.loading = false;
@@ -232,5 +204,17 @@ export class GroupLinkCardComponent implements OnInit, OnDestroy {
       }
     };
     fileReader.onerror = (error) => {};
+  }
+
+  manageUser() {
+    this.router.navigate(['/dashboard/group/manage/users'], {
+      queryParams: {
+        gId: this.groupDetails.groupId,
+      },
+    });
+  }
+
+  back() {
+    this.location.back();
   }
 }

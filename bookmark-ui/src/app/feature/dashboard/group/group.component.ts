@@ -55,9 +55,9 @@ export class GroupComponent implements OnInit {
   }
 
   cardClick(group: Group){
-      this.router.navigate(['/dashboard/group/links'],{queryParams: {
-        gId:group.groupId
-      }})
+      this.router.navigate(['/dashboard/group/links'], {queryParams: {
+        gId: group.groupId
+      }});
   }
 
   delete(id: number) {

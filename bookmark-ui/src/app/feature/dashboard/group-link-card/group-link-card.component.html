@@ -1,7 +1,10 @@
 <mat-toolbar class="toobar">
-  <span>{{ groupDetails?.groupName }}</span>
+    <button mat-stroked-button class="back" (click)="back()">
+        <mat-icon>arrow_back_ios</mat-icon>   <span>{{ groupDetails?.groupName }}</span>
+      </button>
+
   <span class="spacer"></span>
-  <button mat-icon-button> 
+  <button mat-icon-button (click)="manageUser()"> 
     <mat-icon>supervised_user_circle</mat-icon>
   </button>
   <button mat-icon-button [matMenuTriggerFor]="menuAdd">

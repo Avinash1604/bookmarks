@@ -11,6 +11,8 @@ import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupLinkCardComponent } from './group-link-card/group-link-card.component';
 import { GroupListComponent } from './link-card/group-list/group-list.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
+import { EditPermisionComponent } from './manage-user/edit-permision/edit-permision.component';
 
 const routes: Routes = [
   {
@@ -38,6 +40,10 @@ const routes: Routes = [
         path: 'group/links',
         component: GroupLinkCardComponent,
       },
+      {
+        path: 'group/manage/users',
+        component: ManageUserComponent,
+      },
     ],
   },
 ];
@@ -51,7 +57,9 @@ const routes: Routes = [
     GroupComponent,
     CreateGroupComponent,
     GroupLinkCardComponent,
-    GroupListComponent
+    GroupListComponent,
+    ManageUserComponent,
+    EditPermisionComponent
   ],
   imports: [
     CommonModule,

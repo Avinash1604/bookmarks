@@ -124,11 +124,11 @@ export class CreateLinkComponent implements OnInit {
   addUrlToGroup() {
     const group = {} as Group;
     group.groupId = this.groupId;
-    const _groupUrl = {} as GroupUrl;
-    _groupUrl.description = this.shortUrlForm.get('longUrl').value;
-    _groupUrl.title = this.shortUrlForm.get('title').value;
-    _groupUrl.description = this.shortUrlForm.get('desc').value;
-    group.urls = [_groupUrl];
+    const groupUrlTemp = {} as GroupUrl;
+    groupUrlTemp.description = this.shortUrlForm.get('longUrl').value;
+    groupUrlTemp.title = this.shortUrlForm.get('title').value;
+    groupUrlTemp.description = this.shortUrlForm.get('desc').value;
+    group.urls = [groupUrlTemp];
     this.groupService.addUrls(group).subscribe(
       (data) => {},
       (error) => {}

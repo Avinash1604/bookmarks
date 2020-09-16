@@ -36,8 +36,8 @@ export class BookmarkCardLayoutComponent implements OnInit {
   }
 
   handleChange(event){
-    var target = event.target;
-    this.cardModel.selected = target.checked; 
+    const target = event.target;
+    this.cardModel.selected = target.checked;
     this.output.emit({
       model: this.cardModel,
       operation: Operation.CHECKBOX

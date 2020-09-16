@@ -78,4 +78,8 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     override fun deleteUrlForGroup(groupId: Long, urlId: Long) {
         bookmarkDatabaseService.deleteUrlForGroup(groupId, urlId)
     }
+
+    override fun getAllUsers(): List<User> {
+       return bookmarkDatabaseService.getAllUsers()
+    }
 }

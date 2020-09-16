@@ -1,10 +1,7 @@
 package com.bookmark
 
 import com.bookmark.exceptions.ExceptionResponse
-import com.bookmark.model.Url
-import com.bookmark.model.UrlRequest
-import com.bookmark.model.User
-import com.bookmark.model.UserRequest
+import com.bookmark.model.*
 import com.bookmark.port.BookmarkService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
@@ -36,7 +33,7 @@ class UserController(private val bookmarkService: BookmarkService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookmarkService.createUser(user))
     }
 
-    @GetMapping(value=["/by-credentials"],produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping(value = ["/by-credentials"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "get user by credentials", description = "get user information")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Successfully get a user", content = [
@@ -45,8 +42,20 @@ class UserController(private val bookmarkService: BookmarkService) {
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
     )
     fun getUserByCredentials(@RequestParam(name = "email") email: String, @RequestParam(name = "password") password: String): User {
-        val userRequest= UserRequest(email = email, password = password);
+        val userRequest = UserRequest(email = email, password = password);
         return bookmarkService.getUserByCredentials(userRequest)
+    }
+
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "get all users", description = "get all users information")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "201", description = "Successfully get all users", content = [
+            (Content(mediaType = "application/json", schema = Schema(implementation = UserDto::class)))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
+        ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
+    )
+    fun getAllUsers(): UserDto {
+        return UserDto(bookmarkService.getAllUsers())
     }
 
 }

@@ -175,12 +175,12 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
     }
 
     override fun getAllGroup(groupId: Long?): List<Group> {
-        if(groupId != null){
+        if (groupId != null) {
             var group: Group? = null
-              groupRepository.findById(groupId).ifPresent {
-                  group = it.toDto()
+            groupRepository.findById(groupId).ifPresent {
+                group = it.toDto()
             }
-            return if(group != null) listOf(group!!) else emptyList()
+            return if (group != null) listOf(group!!) else emptyList()
         }
         return groupRepository.findAll().map {
             it.toDto()
@@ -196,6 +196,12 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         }
     }
 
+    override fun getAllUsers(): List<User> {
+        return userRepository.findAll().map {
+            it.mapEntityToDto()
+        }
+    }
+
     override fun deleteGroup(id: Long) {
         groupRepository.deleteById(id)
     }
@@ -203,4 +209,5 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
     override fun deleteBookmarkUrl(id: Long) {
         urlRepository.deleteById(id)
     }
+
 }

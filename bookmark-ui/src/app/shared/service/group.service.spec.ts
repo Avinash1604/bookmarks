@@ -67,6 +67,14 @@ describe('GroupService', () => {
     req.flush(group);
   });
 
+  it('should get a group by id', () => {
+    service.getGroupsById(1).subscribe((data) => {
+      expect(data).toEqual(group);
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '?groupId=' + 1);
+    expect(req.request.method).toEqual('GET');
+    req.flush(group);
+  });
 
   it('should update a group', () => {
 
@@ -82,5 +90,53 @@ describe('GroupService', () => {
     });
     const req = httpTestingController.expectOne(service.baseUrl + '/1');
     expect(req.request.method).toEqual('DELETE');
+  });
+
+  it('should delete a short url', () => {
+    service.deleteUrl(1, 1).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/1' + '/urls/1');
+    expect(req.request.method).toEqual('DELETE');
+    req.flush({});
+  });
+
+  it('should update a short url', () => {
+    service.updateUrl(group[0]).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/urls');
+    expect(req.request.method).toEqual('PUT');
+    req.flush({});
+  });
+
+  it('should add a short url', () => {
+    service.addUrls(group[0]).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/urls');
+    expect(req.request.method).toEqual('POST');
+    req.flush({});
+  });
+
+  it('should delete a user url', () => {
+    service.deleteUsers(1, 1).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/1' + '/users/1');
+    expect(req.request.method).toEqual('DELETE');
+    req.flush({});
+  });
+
+  it('should update a user url', () => {
+    service.updateUsers(group[0]).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/users/roles');
+    expect(req.request.method).toEqual('PUT');
+    req.flush({});
+  });
+
+  it('should add a user url', () => {
+    service.addusers(group[0]).subscribe((data) => {
+    });
+    const req = httpTestingController.expectOne(service.baseUrl + '/users');
+    expect(req.request.method).toEqual('POST');
+    req.flush({});
   });
 });

@@ -53,7 +53,7 @@ import {MatMenuModule} from '@angular/material/menu';
         MatProgressSpinnerModule,
         CommonModule,
         MatSelectModule,
-        MatMenuModule
+        MatMenuModule,
     ],
     exports: [
         CommonModule,
