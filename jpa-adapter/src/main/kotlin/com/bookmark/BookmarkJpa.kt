@@ -96,7 +96,8 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         if (response.users != null && response.users.isNotEmpty()) {
             groupUser.addAll(response.users)
         }
-        response.users = groupUser;
+        response.users.clear();
+        response.users.addAll(groupUser);
         return groupRepository.save(response).toDto()
     }
 
