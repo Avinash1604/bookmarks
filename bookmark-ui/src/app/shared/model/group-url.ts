@@ -3,5 +3,7 @@ export interface GroupUrl{
      groupId: number;
      longUrl: string;
      expiryDates: string;
-     roleName: string;
+     description: string;
+     title: string;
+     shortUrl: string;
 }

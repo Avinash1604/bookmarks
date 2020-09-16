@@ -1,3 +1,10 @@
+<mat-toolbar class="toobar">
+  <span class="spacer"></span>
+  <button mat-stroked-button class="move_to_folder" (click)="movToGroup()" [disabled]="selectedUrls?.length === 0">
+    <mat-icon>move_to_inbox</mat-icon> Move to Group
+  </button>
+</mat-toolbar>
+
 <div class="container">
   <div layout="row">
     <div class="cardContainer" *ngFor="let url of bookmarkUrls">

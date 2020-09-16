@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!groupId">
         <div class="expiry-label">Expiry date</div>
         <mat-form-field class="expiry-date">
           <input

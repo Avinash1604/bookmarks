@@ -34,6 +34,15 @@ export class BookmarkCardLayoutComponent implements OnInit {
       operation: Operation.CARD_CLICK,
     });
   }
+
+  handleChange(event){
+    const target = event.target;
+    this.cardModel.selected = target.checked;
+    this.output.emit({
+      model: this.cardModel,
+      operation: Operation.CHECKBOX
+    });
+  }
 }
 
 export interface CardModel {
@@ -44,6 +53,8 @@ export interface CardModel {
   shortUrl: string;
   leftBorderStyle: string;
   id: number;
+  selected?: boolean;
+  selectionRequired?: boolean;
 }
 
 export enum Operation {
@@ -51,4 +62,5 @@ export enum Operation {
   DELETE,
   EDIT,
   CARD_CLICK,
+  CHECKBOX
 }

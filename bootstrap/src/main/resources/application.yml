@@ -15,3 +15,21 @@ springdoc:
      disable-swagger-default-url: true
   api-docs:
     path: /api-docs
+
+
+openapi: 3.0.2
+info:
+  title: Reflectoring
+  description: "Tutorials on Spring Boot and Java."
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: petros.stergioulas94@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOT
+externalDocs:
+  description: Find out more about Reflectoring
+  url: https://reflectoring.io/about/
+servers:
+  - url: https://reflectoring.swagger.io/v2

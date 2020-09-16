@@ -8,7 +8,14 @@ import { takeUntil } from 'rxjs/internal/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLinkComponent } from '../create-link/create-link.component';
 import { ThemePalette } from '@angular/material/core';
-import { Operation, CardModel } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
+import {
+  Operation,
+  CardModel,
+} from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
+import { GroupListComponent } from './group-list/group-list.component';
+import { GroupService } from 'src/app/shared/service/group.service';
+import { Group } from 'src/app/shared/model/group';
+import { GroupUrl } from 'src/app/shared/model/group-url';
 
 @Component({
   selector: 'app-link-card',
@@ -18,14 +25,17 @@ import { Operation, CardModel } from 'src/app/shared/bookmark-card-layout/bookma
 export class LinkCardComponent implements OnInit, OnDestroy {
   loading = false;
   color: ThemePalette = 'primary';
+  bookmarkUrls: Url[];
+  selectedUrls: Url[] = [];
+
+  private destroy = new Subject<boolean>();
   constructor(
     private urlService: UrlService,
     public clipboard: Clipboard,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public groupService: GroupService
   ) {}
-  bookmarkUrls: Url[];
-  private destroy = new Subject<boolean>();
   ngOnInit(): void {
     this.getAllUrls();
     this.newlinkAdded();
@@ -125,7 +135,6 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     return linkExpiryDate >= now;
   }
 
-
   borderStyleExpired(dateStr: string) {
     return this.isDateExpired(dateStr)
       ? 'left-border-green'
@@ -146,12 +155,28 @@ export class LinkCardComponent implements OnInit, OnDestroy {
         this.delete(data.id);
         break;
       case Operation.EDIT:
-        this.updateLink((this.bookmarkUrls.filter(obj => obj.id === data.id)[0]));
+        this.updateLink(
+          this.bookmarkUrls.filter((obj) => obj.id === data.id)[0]
+        );
         break;
+      case Operation.CHECKBOX:
+        this.addOrRemoveLinks(data);
     }
   }
 
-  convertUrlToCardModel(url: Url){
+  addOrRemoveLinks(cardModel: CardModel) {
+    if (cardModel.selected) {
+      this.selectedUrls = this.selectedUrls.concat(
+        this.bookmarkUrls.filter((object) => object.id === cardModel.id)
+      );
+    } else {
+      this.selectedUrls = this.selectedUrls.filter(
+        (object) => object.id !== cardModel.id
+      );
+    }
+  }
+
+  convertUrlToCardModel(url: Url) {
     const cardModel = {} as CardModel;
     cardModel.description = url.description;
     cardModel.title = url.title;
@@ -160,6 +185,36 @@ export class LinkCardComponent implements OnInit, OnDestroy {
     cardModel.id = url.id;
     cardModel.favIcon = this.getFavIcon(url.longUrl);
     cardModel.leftBorderStyle = this.borderStyleExpired(url.expiryDate);
+    cardModel.selectionRequired = true;
     return cardModel;
+  }
+
+  movToGroup() {
+    const dialogRef = this.dialog.open(GroupListComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loading = true;
+        const group = {} as Group;
+        group.groupId = result.groupId;
+        group.urls = this.selectedUrls.map((data) => {
+          const groupUrl = {} as GroupUrl;
+          groupUrl.longUrl = data.longUrl;
+          groupUrl.description = data.description;
+          groupUrl.title = data.title;
+          return groupUrl;
+        });
+        this.groupService.addUrls(group).subscribe(
+          (data) => {
+            this.loading = false;
+            alert('Urls added successfully to a Group');
+          },
+          (error) => {
+            this.loading = false;
+          }
+        );
+      }
+    });
   }
 }

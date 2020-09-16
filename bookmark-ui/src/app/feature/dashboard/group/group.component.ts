@@ -3,6 +3,7 @@ import { GroupService } from '../../../shared/service/group.service';
 import { Group } from '../../../shared/model/group';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGroupComponent } from '../create-group/create-group.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-group',
@@ -12,7 +13,7 @@ import { CreateGroupComponent } from '../create-group/create-group.component';
 export class GroupComponent implements OnInit {
   groupList: Group[];
   loading: boolean;
-  constructor(private groupService: GroupService, public dialog: MatDialog) {}
+  constructor(private groupService: GroupService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllGroups();
@@ -51,6 +52,12 @@ export class GroupComponent implements OnInit {
 
   copy() {
 
+  }
+
+  cardClick(group: Group){
+      this.router.navigate(['/dashboard/group/links'], {queryParams: {
+        gId: group.groupId
+      }});
   }
 
   delete(id: number) {

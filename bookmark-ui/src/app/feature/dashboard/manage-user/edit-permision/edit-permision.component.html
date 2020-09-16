@@ -1,0 +1,37 @@
+<mat-icon class="material-icons color_green close_icon" (click)="closeModal()"
+  >close
+</mat-icon>
+
+<div class="row" *ngIf="isAddUser">
+  <mat-form-field>
+    <mat-select name="user" placeholder="User" [(ngModel)]="userId">
+      <mat-option *ngFor="let user of users" [value]="user.userId">
+        {{ user.userName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="row">
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <mat-select name="role" [(ngModel)]="role">
+      <mat-option *ngFor="let role of roles" [value]="role">{{
+        role
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="row create-group">
+  <button
+    mat-raised-button
+    color="primary"
+    class="btn-create-group"
+    [class.spinner]="loading"
+    [disabled]="loading"
+    (click)="updateRole()"
+  >
+    Submit
+  </button>
+</div>

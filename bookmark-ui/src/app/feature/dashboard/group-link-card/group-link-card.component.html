@@ -1,0 +1,54 @@
+<mat-toolbar class="toobar">
+    <button mat-stroked-button class="back" (click)="back()">
+        <mat-icon>arrow_back_ios</mat-icon>   <span>{{ groupDetails?.groupName }}</span>
+      </button>
+
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="manageUser()"> 
+    <mat-icon>supervised_user_circle</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menuAdd">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>import_export</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <div layout="row">
+    <div class="cardContainer" *ngFor="let url of this.groupDetails?.urls">
+      <app-bookmark-card-layout
+        (output)="cardOperation($event)"
+        [cardModel]="convertUrlToCardModel(url)"
+      ></app-bookmark-card-layout>
+    </div>
+  </div>
+</div>
+
+<div class="loading-indicator" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-menu #menu="matMenu">
+    <input type="file" accept="application/JSON" #file hidden (change)="onFileChanged($event)">
+  <button mat-menu-item (click)="file.click()">
+    <mat-icon>cloud_upload</mat-icon>
+    <span>Upload</span>
+  </button>
+  <button mat-menu-item (click)="generateDownloadJsonUri()">
+    <mat-icon>cloud_download</mat-icon>
+    <span>Download</span>
+  </button>
+</mat-menu>
+
+<mat-menu #menuAdd="matMenu">
+  <button mat-menu-item (click)="addNewLink()">
+    <mat-icon>fiber_new</mat-icon>
+    <span>New</span>
+  </button>
+  <button mat-menu-item (click)="addUrlsFromBookmarkSection()">
+    <mat-icon>addchart</mat-icon>
+    <span>Existing</span>
+  </button>
+</mat-menu>

@@ -20,4 +20,5 @@ interface BookmarkDatabaseService {
     fun addUrlsToGroup(group: Group)
     fun updateUrlToGroup(group: Group)
     fun deleteUrlForGroup(groupId: Long, urlId: Long)
+    fun getAllUsers(): List<User>
 }

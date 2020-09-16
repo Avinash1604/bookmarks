@@ -1,0 +1,22 @@
+<mat-icon class="material-icons color_green close_icon" (click)="closeModal()"
+  >close
+</mat-icon>
+
+<table class="group">
+  <tr>
+    <th>GroupName</th>
+    <th>Group Context</th>
+    <th>Group Context Name</th>
+  </tr>
+  <tr *ngFor="let group of groupList">
+    <u (click)="groupClick(group)"
+      ><td>{{ group.groupName }}</td></u
+    >
+    <td>{{ group.groupContext }}</td>
+    <td>{{ group.groupContextName }}</td>
+  </tr>
+</table>
+
+<div class="loading-indicator" *ngIf="loading">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>

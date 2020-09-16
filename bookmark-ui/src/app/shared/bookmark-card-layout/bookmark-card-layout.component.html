@@ -21,5 +21,6 @@
     <div class="card-container">
       <div>{{ cardModel.description }}</div>
       <mat-icon class="material-icons bottom-right" (click)="openCard()" >arrow_forward </mat-icon>
+      <input *ngIf="cardModel?.selectionRequired" type="checkbox" (change)="handleChange($event)" name="select" class="checkbox" />
     </div>
 </div>
