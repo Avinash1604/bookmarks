@@ -47,7 +47,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
     }
 
 
-    @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Update a group", description = "Update a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully updated a group", content = [
@@ -60,7 +60,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         bookmarkService.updateGroup(group)
     }
 
-    @DeleteMapping(value = ["/{id}"])
+    @DeleteMapping(value = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "delete a group", description = "delete a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully deleted a group", content = [
@@ -99,7 +99,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         bookmarkService.updateUsersRoleToGroup(group)
     }
 
-    @DeleteMapping(value = ["/{groupId}/users/{userId}"])
+    @DeleteMapping(value = ["/{groupId}/users/{userId}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "delete a user for a group", description = "delete a user for a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully deleted a user for a group", content = [
@@ -125,7 +125,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         bookmarkService.addUrlsToGroup(group)
     }
 
-    @PutMapping(value = ["/urls"], produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping(value = ["/urls"], produces = [MediaType.APPLICATION_JSON_VALUE] ,consumes = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Update urls to a group", description = "Update urls to a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully updated a url", content = [
@@ -138,7 +138,7 @@ class BookmarkGroupController(private val bookmarkService: BookmarkService) {
         bookmarkService.updateUrlToGroup(group)
     }
 
-    @DeleteMapping(value = ["/{groupId}/urls/{urlId}"])
+    @DeleteMapping(value = ["/{groupId}/urls/{urlId}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "delete a url for a group", description = "delete a url for a group")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully deleted a url for a group", content = [

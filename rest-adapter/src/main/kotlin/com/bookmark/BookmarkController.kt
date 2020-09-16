@@ -50,7 +50,7 @@ class BookmarkController(private val bookmarkService: BookmarkService) {
     }
 
 
-    @PutMapping(value = ["/urls/shorts"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PutMapping(value = ["/urls/shorts"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Update a bookmarked urls", description = "Update the bookmark details")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully updated a bookmarked url", content = [
@@ -63,7 +63,7 @@ class BookmarkController(private val bookmarkService: BookmarkService) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 
-    @DeleteMapping(value = ["/urls/shorts/{id}"])
+    @DeleteMapping(value = ["/urls/shorts/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "delete a short url", description = "delete the bookmark link")
     @ApiResponses(value = [
         ApiResponse(responseCode = "204", description = "Successfully deleted a bookmarked url", content = [
