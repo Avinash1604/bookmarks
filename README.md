@@ -47,6 +47,6 @@ Application
          * Language: Angular (version 9)
          * code quality: codacy, Lint  
          * code coverage: coveralls
-         * Test Framework: jasmine
+         * Test Framework: Karma,jasmine
   
 ```
