@@ -32,7 +32,7 @@ class URLRedirectControllerTest {
         val response = restTemplate.getForEntity(url, Void::class.java)
         //then
         Assertions.assertThat(response).isNotNull
-        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.FOUND)
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
     }
 
     companion object {

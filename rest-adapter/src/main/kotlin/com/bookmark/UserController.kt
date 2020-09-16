@@ -49,7 +49,7 @@ class UserController(private val bookmarkService: BookmarkService) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "get all users", description = "get all users information")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "201", description = "Successfully get all users", content = [
+        ApiResponse(responseCode = "200", description = "Successfully get all users", content = [
             (Content(mediaType = "application/json", schema = Schema(implementation = UserDto::class)))]),
         ApiResponse(responseCode = "400", description = "Bad request", content = [Content(schema = Schema(implementation = ExceptionResponse::class))]),
         ApiResponse(responseCode = "500", description = "Internal server error", content = [Content(schema = Schema(implementation = ExceptionResponse::class))])]
