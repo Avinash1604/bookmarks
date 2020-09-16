@@ -28,7 +28,7 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
         return urlRepository.save(urlEntity).mapEntityToDto()
     }
 
-    override fun getOriginalUrlByUrl(urlId: Long): String {
+    override fun getOriginalUrlById(urlId: Long): String {
         val urlEntity = urlRepository.findById(urlId)
                 .orElseThrow { EntityNotFoundException("There is no entity with") }
         if (urlEntity.expiryDate != null && (urlEntity.expiryDate!! < LocalDate.now())) {
@@ -36,6 +36,16 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
             throw EntityNotFoundException("Link expired!")
         }
         return urlEntity.longUrl!!
+    }
+
+    override fun getUrlFromGroupUrl(groupId: Long, urlId: Long): String {
+        var longUrl: String? = null
+        groupRepository.findById(groupId).ifPresent { it ->
+            it.urls.filter { url -> url.id == urlId }.map { url ->
+                longUrl = url.longUrl!!
+            }
+        }
+        return longUrl ?: throw EntityNotFoundException("There is no entity with")
     }
 
     override fun createUser(user: UserRequest): User {
@@ -55,7 +65,10 @@ class BookmarkJpa(private val urlRepository: UrlRepository,
 
     override fun getUserByCredentials(user: UserRequest): User {
         return userRepository.findByEmailAndPassword(user.email, user.password).mapEntityToDto()
+    }
 
+    override fun checkGroupIdExits(urlId: Long): Boolean {
+        return groupRepository.existsById(urlId)
     }
 
     override fun updateBookmarkUrl(baseUrl: UrlRequest) {

@@ -4,7 +4,7 @@ import com.bookmark.model.*
 
 interface BookmarkDatabaseService {
     fun createShortUrl(urlRequest: UrlRequest): Url
-    fun getOriginalUrlByUrl(urlId: Long): String
+    fun getOriginalUrlById(urlId: Long): String
     fun createUser(user: UserRequest): User
     fun getUserByCredentials(user: UserRequest): User
     fun getAllUrls(): List<Url>
@@ -21,4 +21,6 @@ interface BookmarkDatabaseService {
     fun updateUrlToGroup(group: Group)
     fun deleteUrlForGroup(groupId: Long, urlId: Long)
     fun getAllUsers(): List<User>
+    fun getUrlFromGroupUrl(groupId: Long, urlId: Long): String
+    fun checkGroupIdExits(urlId: Long): Boolean
 }

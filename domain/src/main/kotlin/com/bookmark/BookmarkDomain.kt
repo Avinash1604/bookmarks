@@ -3,17 +3,22 @@ package com.bookmark
 import com.bookmark.model.*
 import com.bookmark.port.BookmarkDatabaseService
 import com.bookmark.port.BookmarkService
+import com.bookmark.utils.Constants
+import com.bookmark.utils.Constants.GROUP_POSTFIX
+import com.bookmark.utils.Constants.GROUP_PREFIX
+import com.bookmark.utils.Constants.UI_BASE_URL
 
 open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseService) : BookmarkService {
     override fun createShortUrl(urlRequest: UrlRequest, baseUrl: String): Url {
         val url = bookmarkDatabaseService.createShortUrl(urlRequest)
-        url.shortUrl = baseUrl+'/'+BaseConversion.encode(url.id)
+        url.shortUrl = baseUrl + "/v1/" + BaseConversion.encode(url.id)
         return url;
     }
 
-    override fun getOriginalUrlByUrl(shortUrlCode: String): String {
-        val urlId = BaseConversion.decode(shortUrlCode);
-        return bookmarkDatabaseService.getOriginalUrlByUrl(urlId)
+    override fun getOriginalUrlByShortUrl(shortUrlCode: String): String {
+        val urlSection = shortUrlCode.split(GROUP_PREFIX)
+        val urlId = if (urlSection.size > 1) BaseConversion.decode(urlSection[1].split(GROUP_POSTFIX)[0]) else BaseConversion.decode(shortUrlCode)
+        return if (shortUrlCode.split(GROUP_POSTFIX).size > 1) bookmarkDatabaseService.getUrlFromGroupUrl(shortUrlCode.split(GROUP_POSTFIX)[1].toLong(), urlId) else bookmarkDatabaseService.getOriginalUrlById(urlId)
     }
 
     override fun createUser(user: UserRequest): User {
@@ -26,7 +31,7 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
 
     override fun getShortUrls(baseUrl: String): List<Url> {
         return bookmarkDatabaseService.getAllUrls().map {
-            it.shortUrl = baseUrl+'/'+BaseConversion.encode(it.id)
+            it.shortUrl = baseUrl + '/' + BaseConversion.encode(it.id)
             it
         }
     }
@@ -44,7 +49,14 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     }
 
     override fun getAllGroup(baseUrl: String, groupId: Long?): List<Group> {
-        return bookmarkDatabaseService.getAllGroup(groupId)
+        return bookmarkDatabaseService.getAllGroup(groupId).map {
+            it.urls?.map { url ->
+                url.shortUrl = baseUrl + "/v1/" + GROUP_PREFIX + BaseConversion.encode(url.id!!) + GROUP_POSTFIX + it.groupId
+                url
+            }
+            it.groupUrl = baseUrl + "/v1/" + getUriFromContextName(it.groupContext!!, it.groupContextName!!) + '/' + BaseConversion.encode(it.groupId!!)
+            it
+        }
     }
 
     override fun updateGroup(group: Group) {
@@ -80,6 +92,19 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
     }
 
     override fun getAllUsers(): List<User> {
-       return bookmarkDatabaseService.getAllUsers()
+        return bookmarkDatabaseService.getAllUsers()
+    }
+
+    override fun getGroupUrlAndRedirect(contextName: String, shortUrl: String): String {
+        val groupId = BaseConversion.decode(shortUrl)
+        val exits = bookmarkDatabaseService.checkGroupIdExits(groupId)
+        return if (exits) UI_BASE_URL + groupId else throw Exception("There is no entity with groupId$groupId")
+    }
+
+    private fun getUriFromContextName(context: GroupContext, contextName: String): String {
+        return when (context) {
+            GroupContext.USER, GroupContext.APPLICATION, GroupContext.TRIBE -> contextName
+            GroupContext.NONE -> "tiny"
+        }
     }
 }

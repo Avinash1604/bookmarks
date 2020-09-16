@@ -7,7 +7,7 @@ data class Group(
         val groupName: String? = null,
         val groupContextName: String? = null,
         val groupContext: GroupContext? = null,
-        val groupUrl: String? = null,
+        var groupUrl: String? = null,
         val createdOn: LocalDateTime? = null,
         val users: List<GroupUser>? = emptyList(),
         val urls: List<GroupUrl>? = emptyList()

@@ -26,7 +26,7 @@ class URLRedirectControllerTest {
     @Test
     fun `should test the redirect to original url when user hits short urls`() {
         // given
-        Mockito.`when`(bookmarkService!!.getOriginalUrlByUrl("ab")).thenReturn("https://mkyong.com/spring-boot/test/spring/boo")
+        Mockito.`when`(bookmarkService!!.getOriginalUrlByShortUrl("ab")).thenReturn("https://mkyong.com/spring-boot/test/spring/boo")
         //when
         val url = "$BASE_URL$port/ab"
         val response = restTemplate.getForEntity(url, Void::class.java)

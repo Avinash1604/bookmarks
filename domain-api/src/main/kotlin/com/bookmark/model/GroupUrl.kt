@@ -7,6 +7,7 @@ data class GroupUrl (
         val groupId: Long? = null,
         val title: String? = null,
         val longUrl: String? = null,
+        var shortUrl: String? = null,
         val description: String? = null,
         val createdOn: LocalDateTime? = null
 )
