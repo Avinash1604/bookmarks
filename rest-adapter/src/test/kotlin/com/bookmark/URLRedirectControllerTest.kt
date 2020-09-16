@@ -28,11 +28,11 @@ class URLRedirectControllerTest {
         // given
         Mockito.`when`(bookmarkService!!.getOriginalUrlByShortUrl("ab")).thenReturn("https://mkyong.com/spring-boot/test/spring/boo")
         //when
-        val url = "$BASE_URL$port/ab"
+        val url = "$BASE_URL$port/v1/ab"
         val response = restTemplate.getForEntity(url, Void::class.java)
         //then
         Assertions.assertThat(response).isNotNull
-        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.NO_CONTENT)
+        Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.FOUND)
     }
 
     companion object {
