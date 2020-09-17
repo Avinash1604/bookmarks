@@ -6,7 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { CardModel, Operation } from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
+import {
+  CardModel,
+  Operation,
+} from 'src/app/shared/bookmark-card-layout/bookmark-card-layout.component';
 import { Group } from 'src/app/shared/model/group';
 import { GroupUrl } from 'src/app/shared/model/group-url';
 import { Url } from 'src/app/shared/model/url';
