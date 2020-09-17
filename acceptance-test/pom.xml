@@ -36,6 +36,45 @@
         <artifactId>h2</artifactId>
         <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>info.cukes</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>info.cukes</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>info.cukes</groupId>
+        <artifactId>cucumber-spring</artifactId>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.cukedoctor</groupId>
+                <artifactId>cukedoctor-maven-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <outputFileName>documentation</outputFileName>
+                    <outputDir>docs</outputDir>
+                    <format>html</format>
+                    <toc>left</toc>
+                    <numbered>true</numbered>
+                    <docVersion>${project.version}</docVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -128,10 +128,6 @@ describe('GroupComponent', () => {
     expect(groupService.deleteGroup).toHaveBeenCalledWith(1);
   });
 
-  it('should update the url data', () => {
-    component.groupList = group.details;
-    // component.updateGroup(group.details[0]);
-  });
 
   it('should navigate to group url listing pae', () => {
     component.cardClick(group.details[0]);

@@ -51,7 +51,7 @@ export class GroupComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.updateGroup(result);
+        this.getAllGroups();
       }
     });
   }
@@ -66,15 +66,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateGroup(group: Group) {
-    this.groupList
-      .filter((data) => data.groupId === group.groupId)
-      .map((data) => {
-        data.groupName = group.groupName;
-        (data.groupContext = group.groupContext),
-          (data.groupContextName = group.groupContextName);
-      });
-  }
+
 
   copy(url: string) {
     this.clipboard.copy(url);
