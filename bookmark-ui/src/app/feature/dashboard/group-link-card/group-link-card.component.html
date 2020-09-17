@@ -1,10 +1,11 @@
 <mat-toolbar class="toobar">
-    <button mat-stroked-button class="back" (click)="back()">
-        <mat-icon>arrow_back_ios</mat-icon>   <span>{{ groupDetails?.groupName }}</span>
-      </button>
+  <button mat-stroked-button class="back" (click)="back()">
+    <mat-icon>arrow_back_ios</mat-icon>
+    <span>{{ groupDetails?.groupName }}</span>
+  </button>
 
   <span class="spacer"></span>
-  <button mat-icon-button (click)="manageUser()"> 
+  <button mat-icon-button (click)="manageUser()">
     <mat-icon>supervised_user_circle</mat-icon>
   </button>
   <button mat-icon-button [matMenuTriggerFor]="menuAdd">
@@ -31,7 +32,14 @@
 </div>
 
 <mat-menu #menu="matMenu">
-    <input type="file" accept="application/JSON" #file hidden (change)="onFileChanged($event)">
+  <input
+    type="file"
+    accept="application/JSON"
+    (click)="file.value = null"
+    #file
+    hidden
+    (change)="onFileChanged($event)"
+  />
   <button mat-menu-item (click)="file.click()">
     <mat-icon>cloud_upload</mat-icon>
     <span>Upload</span>
