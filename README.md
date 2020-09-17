@@ -19,7 +19,8 @@ Below are the task taken care by Travis :
 * Auto deployment to git hub pages 
 
 Spring boot Kotlin : 
-Integrated with heroku and will be deployed automatically when code is pushed.
+* Travis CI will run the test cases and make sure that get the coverage 
+* Integrated with heroku and will be deployed automatically when code is merged to master.
 
 ## Demo 
 Swagger
@@ -28,13 +29,30 @@ Swagger
 Application 
 * `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
 
-### How to use an application 
-
+### How to set up application on local
+#### Backend - requirement - kotlin
+ - [OPENJDK 11](https://jdk.java.net/11/)
+ - [Maven 3](https://maven.apache.org)
+ - Intellij or STS IDE 
+ 
+ There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `com.bookmark.BookmarkApplication` class from your IDE.
+ 
+ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
+ 
+ ```shell
+ mvn spring-boot:run
+ ```
+ Once after ran successfully then validate all apis on swagger 
+ ```swagger
+http://localhost:8080/swagger-ui/index.html or http://localhost:8080/swagger-ui.html
+```
+#### Front end - angular
+ - [README](https://github.com/Avinash1604/bookmarks/blob/master/bookmark-ui/README.md)
 ### Technology and versions 
 ```
 * Backend
 
-	 * Language: kotlin (AdoptOpenJDK 11.2)
+	 * Language: kotlin (OpenJDK 11.2)
 	 * Framework: Spring, spring-boot, spring-jpa
          * documentation: Swagger 3.0.2
          * database : postgres 
