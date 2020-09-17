@@ -17,10 +17,10 @@
             </mat-icon>
           </div>
         </div>
-        <div class="card-container">
+        <div class="card-container" (click)="cardClick(group)">
           <div></div>
           <div class="context">Context : {{ group.groupContext}}</div>
-          <div>Context Name : {{ group.groupContextName}}</div>
+          <div>Description : {{ group.groupContextName}}</div>
           <mat-chip-list class="matrics">
             <mat-chip>User Count {{group.users.length}}</mat-chip>
             <mat-chip>Url Count {{group.urls.length}}</mat-chip>

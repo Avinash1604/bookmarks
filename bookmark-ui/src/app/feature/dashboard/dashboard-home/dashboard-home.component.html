@@ -11,12 +11,22 @@
       </button>
     </div>
     <!-- ommited -->
-    <h1 class="title-center">Bookmark</h1>
+    <h1 class="title-center">Bookmark Dashboard</h1>
+    <button mat-button (click)="openDialogLogin()" [disabled]="isUserLogin()">
+      Login
+    </button>
+    <button
+      mat-button
+      (click)="openDialogRegister()"
+      [disabled]="isUserLogin()"
+    >
+      Register
+    </button>
   </mat-toolbar>
   <mat-sidenav-container #sidenavCon class="side-nave-container">
     <mat-sidenav
       [mode]="screenWidth > 840 ? 'side' : 'Over'"
-      [opened]="screenWidth > 840"
+      [opened]="'false'"
       #sidenav
       class="mat-sidenav"
     >
@@ -42,24 +52,24 @@
           </mat-list-option>
           <mat-list-option>
             <a [routerLink]="['/dashboard/all-links']">
-            <div class="sub-menu">
-              ALL LINKS
-              <mat-icon class="material-icons color_green"
-                >keyboard_arrow_right
-              </mat-icon>
-            </div>
+              <div class="sub-menu">
+                ALL LINKS
+                <mat-icon class="material-icons color_green"
+                  >keyboard_arrow_right
+                </mat-icon>
+              </div>
             </a>
           </mat-list-option>
           <mat-list-option>
             <a [routerLink]="['/dashboard/expired']">
-            <div class="sub-menu">
-              EXPIRED LINK
-              <mat-icon class="material-icons color_green"
-                >keyboard_arrow_right
-              </mat-icon>
-            </div>
+              <div class="sub-menu">
+                EXPIRED LINK
+                <mat-icon class="material-icons color_green"
+                  >keyboard_arrow_right
+                </mat-icon>
+              </div>
             </a>
-            </mat-list-option>
+          </mat-list-option>
         </mat-selection-list>
       </mat-expansion-panel>
 
@@ -76,28 +86,33 @@
         </mat-expansion-panel-header>
         <mat-selection-list #link [multiple]="false">
           <mat-list-option>
-            <div class="sub-menu" (click)="createGroup()">
+            <button
+              mat-stroked-button
+              [disabled]="!isUserLogin()"
+              class="sub-menu"
+              (click)="createGroup()"
+            >
               ADD NEW
               <mat-icon class="material-icons color_green"
                 >keyboard_arrow_right
               </mat-icon>
-            </div>
+            </button>
           </mat-list-option>
           <mat-list-option>
             <a [routerLink]="['/dashboard/groups']">
-            <div class="sub-menu">
-              ALL GROUP
-              <mat-icon class="material-icons color_green"
-                >keyboard_arrow_right
-              </mat-icon>
-            </div>
+              <div class="sub-menu">
+                ALL GROUP
+                <mat-icon class="material-icons color_green"
+                  >keyboard_arrow_right
+                </mat-icon>
+              </div>
             </a>
           </mat-list-option>
         </mat-selection-list>
       </mat-expansion-panel>
 
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['../home']">
+        <a mat-list-item (click)="logout()">
           <div style="margin-right: 10px">
             <mat-icon class="material-icons color_green">logout </mat-icon>
           </div>

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
     private urlService: UrlService,
     private datePipe: DatePipe,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public routers: Router
   ) {}
 
   ngOnInit() {
@@ -57,7 +59,9 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '450px',
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+
+    });
   }
 
   openDialogRegister(): void {
@@ -75,5 +79,9 @@ export class HomeComponent implements OnInit {
     this.snackBar.open('copied', 'url', {
       duration: 2000,
     });
+  }
+
+  openDashboard(){
+     this.routers.navigate(['/dashboard/all-links']);
   }
 }

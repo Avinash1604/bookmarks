@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UrlService } from 'src/app/shared/service/url.service';
 import { Url } from 'src/app/shared/model/url';
 import { of } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -23,6 +24,7 @@ describe('HomeComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         FormsModule,
+        RouterTestingModule,
       ],
       providers: [DatePipe, UrlService],
     }).compileComponents();
@@ -39,7 +41,6 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should create a short url', () => {
     const url = {} as Url;
     url.longUrl = 'http://test/test/test';
@@ -48,5 +49,4 @@ describe('HomeComponent', () => {
     component.requestShortUrl();
     expect(component.loading).toEqual(false);
   });
-
 });

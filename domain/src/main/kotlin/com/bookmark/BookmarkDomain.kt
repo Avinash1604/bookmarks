@@ -54,7 +54,7 @@ open class BookmarkDomain(private val bookmarkDatabaseService: BookmarkDatabaseS
                 url.shortUrl = baseUrl + "/v1/" + GROUP_PREFIX + BaseConversion.encode(url.id!!) + GROUP_POSTFIX + it.groupId
                 url
             }
-            it.groupUrl = baseUrl + "/v1/" + getUriFromContextName(it.groupContext!!, it.groupContextName!!) + '/' + BaseConversion.encode(it.groupId!!)
+            it.groupUrl = baseUrl + "/v1/" + getUriFromContextName(it.groupContext!!, it.groupName!!) + '/' + BaseConversion.encode(it.groupId!!)
             it
         }
     }

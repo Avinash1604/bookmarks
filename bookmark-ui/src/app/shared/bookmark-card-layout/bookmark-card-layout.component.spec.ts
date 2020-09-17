@@ -55,6 +55,13 @@ describe('BookmarkCardLayoutComponent', () => {
     expect(component.output.emit).toHaveBeenCalled();
   });
 
+
+  it('should user able to select and unselect the cards', () => {
+    spyOn(component.output, 'emit');
+    component.handleChange({target: {checked: true}});
+    expect(component.output.emit).toHaveBeenCalled();
+  });
+
   it('should card click event works', () => {
     spyOn(component.output, 'emit');
     component.openCard();

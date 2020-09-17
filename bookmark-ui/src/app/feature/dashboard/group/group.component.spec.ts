@@ -8,6 +8,8 @@ import { of } from 'rxjs';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { GroupService } from 'src/app/shared/service/group.service';
 import { GroupComponent } from './group.component';
+import { User } from 'src/app/shared/model/user';
+import { Router } from '@angular/router';
 
 export class MatDialogMock {
   open() {
@@ -20,6 +22,10 @@ export class MatDialogMock {
 export class MatDialogRefMock {
   close() {}
 }
+
+const router = {
+  navigate: jasmine.createSpy('navigate'),
+};
 
 describe('GroupComponent', () => {
   let component: GroupComponent;
@@ -65,6 +71,7 @@ describe('GroupComponent', () => {
         GroupService,
         { provide: MatDialog, useClass: MatDialogMock },
         { provide: MatDialogRef, useClass: MatDialogRefMock },
+        { provide: Router, useValue: router },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -72,7 +79,14 @@ describe('GroupComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GroupComponent);
+    const user = {} as User;
+    user.userName = 'userName';
+    user.userId = 1;
+    user.password = 'password';
+    user.email = 'email';
+    localStorage.setItem('user', JSON.stringify(user));
     component = fixture.componentInstance;
+    component.groupList = group.details;
     groupService = TestBed.inject(GroupService);
     fixture.detectChanges();
   });
@@ -87,6 +101,26 @@ describe('GroupComponent', () => {
     expect(component.groupList).toEqual(group.details);
   });
 
+  it('should open new window and redirect to web app when user clicks on card', () => {
+    spyOn(window, 'open');
+    component.openCard('http://localhost');
+    expect(window.open).toHaveBeenCalledWith('http://localhost', '_blank');
+  });
+
+  it('should update group', () => {
+    component.update(group.details[0]);
+  });
+
+  it('should update group', () => {
+    component.update(group.details[0]);
+  });
+
+  it('should copy object when clicks on copy', () => {
+    spyOn(component.clipboard, 'copy');
+    component.copy('test');
+    expect(component.clipboard.copy).toHaveBeenCalledWith('test');
+  });
+
   it('should delete a group', () => {
     component.groupList = group.details;
     spyOn(groupService, 'deleteGroup').and.returnValue(of('success'));
@@ -96,6 +130,12 @@ describe('GroupComponent', () => {
 
   it('should update the url data', () => {
     component.groupList = group.details;
-    component.updateGroup(group.details[0]);
+    // component.updateGroup(group.details[0]);
   });
+
+  it('should navigate to group url listing pae', () => {
+    component.cardClick(group.details[0]);
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard/group/links'], {queryParams: {gId: 1}});
+  });
+
 });

@@ -190,6 +190,10 @@ export class LinkCardComponent implements OnInit, OnDestroy {
   }
 
   movToGroup() {
+    if (!this.isUserLogin()){
+      alert('Please Log In to add to group');
+      return;
+    }
     const dialogRef = this.dialog.open(GroupListComponent, {
       width: '600px',
     });
@@ -217,4 +221,11 @@ export class LinkCardComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  isUserLogin() {
+    if (localStorage.getItem('user') === null){
+       return false;
+    }
+    return true;
+ }
 }

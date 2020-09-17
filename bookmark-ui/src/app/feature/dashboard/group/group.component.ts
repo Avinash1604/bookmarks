@@ -84,11 +84,15 @@ export class GroupComponent implements OnInit, OnDestroy {
   }
 
   cardClick(group: Group) {
-    this.router.navigate(['/dashboard/group/links'], {
-      queryParams: {
-        gId: group.groupId,
-      },
-    });
+    if (this.userHasAcessToGroup(group)) {
+      this.router.navigate(['/dashboard/group/links'], {
+        queryParams: {
+          gId: group.groupId,
+        },
+      });
+    } else {
+      alert('No Access to this group');
+    }
   }
 
   delete(id: number) {
@@ -105,10 +109,13 @@ export class GroupComponent implements OnInit, OnDestroy {
   }
 
   userHasAcessToGroup(group: Group) {
-    const user = JSON.parse(localStorage.getItem('user')) as User;
-    return group.users.filter((data) => data.userId === user.userId).length
-      ? true
-      : false;
+    if (this.isUserLogin()) {
+      const user = JSON.parse(localStorage.getItem('user')) as User;
+      return group.users.filter((data) => data.userId === user.userId).length
+        ? true
+        : false;
+    }
+    return false;
   }
 
   borderStyleAccessRights(group: Group) {
@@ -120,5 +127,12 @@ export class GroupComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy.next(true);
     this.destroy.unsubscribe();
+  }
+
+  isUserLogin() {
+    if (localStorage.getItem('user') === null) {
+      return false;
+    }
+    return true;
   }
 }
