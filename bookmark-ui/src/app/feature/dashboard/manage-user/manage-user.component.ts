@@ -64,7 +64,7 @@ export class ManageUserComponent implements OnInit, AfterViewInit {
 
   deleteUser(user: GroupUser) {
     this.loading = true;
-    this.groupService.deleteUsers(this.groupId, user.id).subscribe(
+    this.groupService.deleteUsers(this.groupId, user.userId).subscribe(
       (data) => {
         this.loading = false;
         this.getGroupById();
