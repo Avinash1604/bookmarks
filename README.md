@@ -80,7 +80,7 @@ The application is build upon a very strong hexagonal architecture where every p
 
 ![](docs/arch-design.png)
 
-### HOW to use An Application 
+### HOW to use an Application 
  Go to below url
 * `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
 
