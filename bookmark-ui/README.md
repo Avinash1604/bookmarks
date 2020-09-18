@@ -26,3 +26,16 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Demo 
+Swagger
+* `https://bookmarks-tiny.herokuapp.com/swagger-ui.html` [url](https://bookmarks-tiny.herokuapp.com/swagger-ui.html)
+
+Application 
+* `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
+
+Database schema  
+* `https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources`[location](https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources)
+
+Feature file  
+* `https://github.com/Avinash1604/bookmarks/blob/master/acceptance-test/src/test/resources/feature/bookmark-url.feature`[location](https://github.com/Avinash1604/bookmarks/blob/master/acceptance-test/src/test/resources/feature/bookmark-url.feature)

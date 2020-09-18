@@ -32,6 +32,10 @@ Application
 Database schema  
 * `https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources`[location](https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources)
 
+Feature file  
+* `https://github.com/Avinash1604/bookmarks/blob/master/acceptance-test/src/test/resources/feature/bookmark-url.feature`[location](https://github.com/Avinash1604/bookmarks/blob/master/acceptance-test/src/test/resources/feature/bookmark-url.feature)
+
+
 ### How to set up application on local
 #### Backend - requirement - kotlin
  - [OPENJDK 11](https://jdk.java.net/11/)
@@ -113,7 +117,7 @@ Below logic is applied for the short url creation
    -  group related activity requires user login 
    -  Admin/users can go to inside group and manage bookmarked url , add , upload , download files , manage users 
 
-  
+ 
 
  
     
