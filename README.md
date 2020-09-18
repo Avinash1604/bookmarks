@@ -76,3 +76,45 @@ The application is build upon a very strong hexagonal architecture where every p
 
 ![](docs/arch-design.png)
 
+### HOW to use An Application 
+ Go to below url
+* `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
+
+###### Home page 
+you can see a home page where you can create a short url and which will expire after a standard default timespan. 
+
+Below logic is applied for the short url creation  
+
+ - Store the url information on database and get the primary key 
+ - convert primary key to base 62 , basically storing the remainder - which is the short code for the long url
+    
+    ex: 1000%62 = 8, 16 --- results 
+    
+    then encrypt the key using 64 bit private key and decrypt(reverse process) to get the primary key of the table to get long url
+    
+ - Below are the format of the short url 
+ ```
+ https://bookmarks-tiny.herokuapp.com/v1/cl 
+ 
+    - host("https://bookmarks-tiny.herokuapp.com")
+    - uri("/v1/") this added because avoid swagger ulr to treat as redirect url
+    - short url code(cl)
+  ```
+    
+###### dashboard page 
+ From home screen you can directly to go to dashboard to access bookmarked cards by click on [dashboard](https://avinash1604.github.io/bookmarks/dashboard/all-links) button or register/login to go to dashboard
+  
+  Below are the task can do on dashboard - on menu option
+   
+   -  list of bookmarked card - operation - add , delete , copy , copy to group
+   -  left border style indicator whether card is expired(red) and active(green)
+   -  group - Action - add , delete , update , copy group url 
+   -  left border style indicator whether have access to group (green) or  not (red)
+   -  group related activity requires user login 
+   -  Admin/users can go to inside group and manage bookmarked url , add , upload , download files , manage users 
+
+  
+
+ 
+    
+    
