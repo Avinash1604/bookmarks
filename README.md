@@ -29,6 +29,9 @@ Swagger
 Application 
 * `https://avinash1604.github.io/bookmarks/`[demo](https://avinash1604.github.io/bookmarks/)
 
+Database schema  
+* `https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources`[location](https://github.com/Avinash1604/bookmarks/tree/master/bootstrap/src/main/resources)
+
 ### How to set up application on local
 #### Backend - requirement - kotlin
  - [OPENJDK 11](https://jdk.java.net/11/)
