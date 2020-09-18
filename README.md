@@ -68,3 +68,8 @@ http://localhost:8080/swagger-ui/index.html or http://localhost:8080/swagger-ui.
          * Test Framework: jasmine
   
 ```
+## Overall Architecture
+The application is build upon a very strong hexagonal architecture where every piece of code is tested through BDD and TDD.
+
+![](docs/arch-design.png)
+
